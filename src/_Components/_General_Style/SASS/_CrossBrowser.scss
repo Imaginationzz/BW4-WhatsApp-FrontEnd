@@ -1,0 +1,20 @@
+@mixin transform($transform){
+    transform: $transform;
+    -webkit-transform: $transform;
+    -moz-transform: $transform;
+    -ms-transform: $transform;
+    -o-transform: $transform;
+}
+
+@mixin filters($filters){
+    filter: $filters;
+    -webkit-filter: $filters;
+}
+
+@mixin bordered($radius){
+    border-radius: $radius !important;
+    -webkit-border-radius: $radius !important;
+    -moz-border-radius: $radius !important;
+    -ms-border-radius: $radius !important;
+    -o-border-radius: $radius !important;
+}

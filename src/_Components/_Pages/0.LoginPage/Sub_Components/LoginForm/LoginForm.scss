@@ -1,0 +1,31 @@
+@import '../../../../_General_Style/SASS/All';
+#login-form{
+    color: #fff;
+    form{
+        @include flexCentered(column, none, center);
+
+        p{
+            font-size: .85rem;
+            margin-top: -1rem;
+            cursor: pointer;
+            &:hover{
+                text-decoration: underline;
+            }
+        }
+        button{
+            min-width: 170px;
+            @include bordered(5px);
+            border: none;
+            font-size: 1.2rem;
+            font-weight: 800;
+            padding: 10px 20px;
+            text-transform: uppercase;
+            background-color: #12d021;
+            &:hover{
+                border: 2px solid #12d021;
+                background-color: transparent;
+                color: #fff;
+            }
+        }
+    }
+}

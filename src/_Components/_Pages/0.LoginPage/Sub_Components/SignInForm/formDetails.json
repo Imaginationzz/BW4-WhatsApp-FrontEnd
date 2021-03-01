@@ -1,0 +1,47 @@
+[
+    {
+        "id": "firstName",
+        "type": "text",
+        "placeholder": "First Name",
+        "feedback":{
+            "invalid": "WhatsApp - Please provide First Name.",
+            "valid": "WhatsApp - Thanks"
+        }
+    },
+    {
+        "id": "lastName",
+        "type": "text",
+        "placeholder": "Last Name",
+        "feedback":{
+            "invalid": "WhatsApp - Please provide Last Name",
+            "valid": "WhatsApp - Thanks"
+        }
+    },
+    {
+        "id": "username",
+        "type": "text",
+        "placeholder": "Username",
+        "feedback":{
+            "invalid": "WhatsApp - Please provide username.",
+            "valid": "WhatsApp - Seems ok"
+        }
+    },
+    {
+        "id": "password",
+        "type": "password",
+        "placeholder": "Password",
+        "feedback":{
+            "invalid": "WhatsApp - Please provide password",
+            "valid": "WhatsApp - Looks Safe"
+        }
+    },
+    {
+        "id": "number",
+        "type": "text",
+        "placeholder": "Cellphone Number",
+        "feedback":{
+            "invalid": "WhatsApp - Please provide Cellphone Number",
+            "valid": "WhatsApp - Thanks"
+        }
+    }
+]
