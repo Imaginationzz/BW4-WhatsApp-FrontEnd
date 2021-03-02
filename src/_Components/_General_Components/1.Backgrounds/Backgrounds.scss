@@ -27,27 +27,27 @@
                 animation-delay: #{random($limit: 5)}s;
                 i:nth-of-type(#{random($limit: 5) + 12}){
                     // color: #12d021;
-                    @include animation(shine 5s ease-in-out infinite);
+                    @include animation(shine 10s ease-in-out infinite);
                 }
                 i:nth-of-type(#{random($limit: 5) + 12}){
                     // color: #12d021;
-                    @include animation(shine 5s ease-in-out infinite);
+                    @include animation(shine 10s ease-in-out infinite);
                 }
                 i:nth-of-type(#{random($limit: 5) + 5}){
                     // color: #12d021;
-                    @include animation(shine 5s ease-in-out infinite);
+                    @include animation(shine 10s ease-in-out infinite);
                 }
                 i:nth-of-type(#{random($limit: 5) + 5}){
                     // color: #12d021;
-                    @include animation(shine 5s ease-in-out infinite);
+                    @include animation(shine 10s ease-in-out infinite);
                 }
                 i:nth-of-type(#{random($limit: 5) + 18}){
                     // color: #12d021;
-                    @include animation(shine 5s ease-in-out infinite);
+                    @include animation(shine 10s ease-in-out infinite);
                 }
                 i:nth-of-type(#{random($limit: 5) + 18}){
                     // color: #12d021;
-                    @include animation(shine 5s ease-in-out infinite);
+                    @include animation(shine 10s ease-in-out infinite);
                 }
             }
         }
@@ -65,9 +65,10 @@
 
 @keyframes shine{
     0%{}
-    100%{
+    50%{
         color: #12d021;
         @include filters(brightness(110%));
         text-shadow: 0px 0px 5px #12d021;
     }
+    100%{}
 }
