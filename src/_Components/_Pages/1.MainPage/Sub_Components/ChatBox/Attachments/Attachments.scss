@@ -1,0 +1,17 @@
+@import '../../../../../_General_Style/SASS/All';
+.attachments{
+    width: 50px;
+    position: absolute;
+    top: -310px;
+    left: 6%;
+    overflow: hidden;
+    @include transition(all .5s ease-in-out);
+    .media-icons{
+        width: 50px;
+        height: 50px;
+        margin: 10px 0;
+        @include bordered(50%);
+        background-color: red;
+        @include flexCentered(column, center, center);
+    }
+}

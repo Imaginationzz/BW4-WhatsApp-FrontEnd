@@ -1,7 +1,8 @@
-import { SET_USER } from "./constants";
+import { SET_USER, SET_USERLIST } from "./constants";
 
 const initialState = {
   user: null,
+  userList: [],
 };
 
 export const userReducer = (state = initialState, action) => {
@@ -9,6 +10,8 @@ export const userReducer = (state = initialState, action) => {
   switch (type) {
     case SET_USER:
       return { ...state, user: payload };
+    case SET_USERLIST:
+      return { ...state, userList: payload };
     default:
       return state;
   }

@@ -38,7 +38,7 @@ export const createUser = async (user) => {
     headers: new Headers({ "Content-Type": "application/json" }),
   });
   const result = await response.json();
-  console.log("Success Post", result);
+  // console.log("Success Post", result);
   //GET ACCESS_TOKEN
   const tokenResponse = await fetch(
     `${process.env.REACT_APP_URL_DEV}/users/authorize`,
@@ -53,7 +53,7 @@ export const createUser = async (user) => {
   );
   const tokenResult = await tokenResponse.json();
   // console.log("Success Get Token", tokenResult);
-  return tokenResult;
+  return { access_token: tokenResult, user: result };
 };
 
 //AUTHORIZE USER
@@ -70,12 +70,16 @@ export const authorizeUser = async (user) => {
     }
   );
   const result = await response.json();
-  // console.log("Success Get Token", result);
+  // console.log("Success Get Token", result.access_token);
   const userResponse = await fetch(
     `${process.env.REACT_APP_URL_DEV}/users/profile`,
     {
       method: "GET",
+      headers: {
+        Authorization: `Bearer ${result.access_token}`,
+      },
     }
   );
-  return result;
+  const userResult = await userResponse.json();
+  return { access_token: result, user: userResult };
 };
