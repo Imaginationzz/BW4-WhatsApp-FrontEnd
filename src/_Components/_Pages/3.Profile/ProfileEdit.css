@@ -1,0 +1,144 @@
+.Header {
+  padding-right: 20px;
+  padding-left: 23px;
+  background-color: #00bfa5;
+  z-index: 200;
+  box-sizing: border-box;
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 10vh;
+  color: white;
+}
+.HeaderContent{
+        display: flex;
+        flex: none;
+        align-items: center;
+        width: 100%;
+        height: 59px;
+        background-color: initial;
+        text-align: initial;
+}
+.HeaderText{
+        flex-grow: 1;
+        overflow: hidden;
+        font-size: 19px;
+        line-height: normal;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        margin-top: -3px;
+        font-weight: 500;
+}
+.BackIconDiv{
+    width: 53px;
+}
+.BackIcon{
+    width: 24px;
+    height: 41px;
+}
+.EditPage {
+  position: relative;
+  z-index: 100;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  overflow-x: hidden;
+  overflow-y: auto;
+  opacity: 1;
+  background-color: #ededed;
+  height: 90vh;
+}
+.ProfilePicDiv {
+  display: flex;
+  flex: none;
+  justify-content: center;
+  margin-top: 28px;
+  margin-bottom: 28px;
+  transform-origin: center center;
+}
+.ProfilePic {
+  width: 200px;
+  height: 200px;
+}
+.NameDiv {
+  margin-bottom: 10px;
+  background-color: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  padding: 14px 30px 10px;
+}
+.NameHeader {
+  position: relative;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: normal;
+  color: #5f96ad;
+}
+.NameContent {
+  position: relative;
+  word-wrap: break-word;
+  border-bottom: 2px solid transparent;
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: flex-start;
+}
+.Name {
+  position: relative;
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+.EditIconDiv {
+  position: relative;
+  flex: none;
+  width: 24px;
+  height: 25px;
+  color: #919191;
+}
+.EditIcon{
+    height: 25px;
+    width: 24px;
+    color: #919191;
+}
+.NameInfo {
+  margin: 4px 20px 28px 30px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  color: rgba(0, 0, 0, 0.45);
+}
+.BioDiv{
+        margin-bottom: 10px;
+        background-color: white;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+        padding: 14px 30px 10px;
+}
+.BioHeader{
+    position: relative;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: normal;
+    color: #5f96ad;
+}
+.BioContent{
+    position: relative;
+    word-wrap: break-word;
+    border-bottom: 2px solid transparent;
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: flex-start;
+}
+.Bio{
+    position: relative;
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+}
