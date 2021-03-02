@@ -1,0 +1,77 @@
+@import '../../../../_General_Style/SASS/All';
+#login-form{
+    color: #fff;
+    .socials{
+        .col-md-6{
+            @include flexCentered(column, none, center);
+            .social-btn{
+                min-width: 230px;
+                @include bordered(5px);
+                border: none;
+                padding: 10px 20px;
+                color: #fff;
+                i{
+                    margin-right: 1rem;
+                }
+                font-weight: 600;
+                a{
+                    text-decoration: none;
+                    color: #fff;
+                }
+            }
+            &:nth-of-type(1){
+                .social-btn{
+                    background-color: #cf4332;
+                    &:hover{
+                        border: 2px solid #cf4332;
+                        color: #cf4332;
+                        background-color: #fff;
+                        a{
+                            color: #cf4332;
+                        }
+                    }
+                }
+            }
+            &:nth-of-type(2){
+                .social-btn{
+                    background-color: #3c66c4;
+                    &:hover{
+                        border: 2px solid #3c66c4;
+                        color: #3c66c4;
+                        background-color: #fff;
+                        a{
+                            color: #3c66c4;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    form{
+        @include flexCentered(column, none, center);
+
+        p{
+            font-size: .85rem;
+            margin-top: -1rem;
+            cursor: pointer;
+            &:hover{
+                text-decoration: underline;
+            }
+        }
+        button{
+            min-width: 170px;
+            @include bordered(5px);
+            border: none;
+            font-size: 1.2rem;
+            font-weight: 800;
+            padding: 10px 20px;
+            text-transform: uppercase;
+            background-color: #12d021;
+            &:hover{
+                border: 2px solid #12d021;
+                background-color: transparent;
+                color: #fff;
+            }
+        }
+    }
+}

@@ -1,0 +1,22 @@
+@import '../../../../_General_Style/SASS/All';
+.form-group{
+    label{
+        text-transform: capitalize;
+        font-weight: 600;
+        color: #fff;
+    }
+    .input-group{
+        @include flexCentered(column, none, center);
+        input{
+            width: 100%;
+            @include bordered(5px);
+            outline: none;
+            font-weight: 700;
+            color: black;
+            &:focus{
+                box-shadow: 0px 0px 1px 2px #12d021;
+            }
+        }
+
+    }
+}

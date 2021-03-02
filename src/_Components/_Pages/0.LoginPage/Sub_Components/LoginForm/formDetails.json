@@ -1,0 +1,20 @@
+[
+    {
+        "id": "username",
+        "type": "text",
+        "placeholder": "Username",
+        "feedback":{
+            "invalid": "WhatsApp - Please provide username.",
+            "valid": "WhatsApp - Seems ok"
+        }
+    },
+    {
+        "id": "password",
+        "type": "password",
+        "placeholder": "Password",
+        "feedback":{
+            "invalid": "WhatsApp - Please provide password",
+            "valid": "WhatsApp - Looks Safe"
+        }
+    }
+]
