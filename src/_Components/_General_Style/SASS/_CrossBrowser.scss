@@ -18,3 +18,8 @@
     -ms-border-radius: $radius !important;
     -o-border-radius: $radius !important;
 }
+
+@mixin animation($animation){
+    animation: $animation;
+    -webkit-animation: $animation;
+}

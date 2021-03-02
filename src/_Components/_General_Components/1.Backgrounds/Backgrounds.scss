@@ -26,22 +26,28 @@
             .emoji-row:nth-of-type(#{$i}){
                 animation-delay: #{random($limit: 5)}s;
                 i:nth-of-type(#{random($limit: 5) + 12}){
-                    color: #12d021;
+                    // color: #12d021;
+                    @include animation(shine 5s ease-in-out infinite);
                 }
                 i:nth-of-type(#{random($limit: 5) + 12}){
-                    color: #12d021;
+                    // color: #12d021;
+                    @include animation(shine 5s ease-in-out infinite);
                 }
                 i:nth-of-type(#{random($limit: 5) + 5}){
-                    color: #12d021;
+                    // color: #12d021;
+                    @include animation(shine 5s ease-in-out infinite);
                 }
                 i:nth-of-type(#{random($limit: 5) + 5}){
-                    color: #12d021;
+                    // color: #12d021;
+                    @include animation(shine 5s ease-in-out infinite);
                 }
                 i:nth-of-type(#{random($limit: 5) + 18}){
-                    color: #12d021;
+                    // color: #12d021;
+                    @include animation(shine 5s ease-in-out infinite);
                 }
                 i:nth-of-type(#{random($limit: 5) + 18}){
-                    color: #12d021;
+                    // color: #12d021;
+                    @include animation(shine 5s ease-in-out infinite);
                 }
             }
         }
