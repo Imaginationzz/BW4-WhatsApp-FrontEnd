@@ -1,7 +1,19 @@
 import React, { useState } from "react";
 
 //UTILITIES IMPORTS
-import { checkValidity } from "./utilities";
+import {
+  checkValidity,
+  handleOnChange,
+  loginState,
+  signInState,
+  createUser,
+  authorizeUser,
+} from "./utilities";
+
+//REDUX IMPORTS
+import { useDispatch } from "react-redux";
+import { setToken } from "../../../Redux-Store/Token/actions";
+import { setUser } from "../../../Redux-Store/_Users/actions";
 
 //PERSONAL COMPONENTS IMPORTS
 import LoginForm from "./Sub_Components/LoginForm/LoginForm";
@@ -14,11 +26,32 @@ import "./LoginPage.scss";
 export default function LoginPage() {
   const [form, setForm] = useState(false);
   const [isValid, setIsValid] = useState(false);
+  const [login, setLogin] = useState(loginState);
+  const [signIn, setSignIn] = useState(signInState);
+  const dispatch = useDispatch();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     checkValidity(e);
     setIsValid(true);
-    console.log("hey");
+    if (form) {
+      await createUser(signIn);
+    } else {
+      const access_token = await authorizeUser(login);
+      dispatch(setToken(access_token));
+    }
+  };
+
+  const fillForm = (e) => {
+    let state;
+    if (form) {
+      state = signIn;
+      let filledForm = handleOnChange(e, state);
+      setSignIn(filledForm);
+    } else {
+      state = login;
+      let filledForm = handleOnChange(e, state);
+      setLogin(filledForm);
+    }
   };
 
   return (
@@ -33,11 +66,19 @@ export default function LoginPage() {
           <hr />
           <LoginForm
             state={{ form, isValid }}
-            functions={{ changeForm: () => setForm(true), handleSubmit }}
+            functions={{
+              changeForm: () => setForm(true),
+              handleSubmit,
+              fillForm,
+            }}
           />
           <SignInForm
             state={{ form, isValid }}
-            functions={{ changeForm: () => setForm(false), handleSubmit }}
+            functions={{
+              changeForm: () => setForm(false),
+              handleSubmit,
+              fillForm,
+            }}
           />
         </div>
       </div>

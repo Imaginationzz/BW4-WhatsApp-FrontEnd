@@ -36,7 +36,7 @@
         }
     },
     {
-        "id": "number",
+        "id": "phone",
         "type": "text",
         "placeholder": "Cellphone Number",
         "feedback":{

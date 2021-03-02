@@ -23,12 +23,24 @@ export default function SignInForm({ state, functions }) {
         <Row>
           <Col md={6}>
             {formDetails.slice(0, 3).map((form, i) => {
-              return <CheckInputs formDetails={form} key={i} />;
+              return (
+                <CheckInputs
+                  formDetails={form}
+                  key={i}
+                  functions={functions.fillForm}
+                />
+              );
             })}
           </Col>
           <Col md={6}>
             {formDetails.slice(3, 6).map((form, i) => {
-              return <CheckInputs formDetails={form} key={i} />;
+              return (
+                <CheckInputs
+                  formDetails={form}
+                  key={i}
+                  functions={functions.fillForm}
+                />
+              );
             })}
           </Col>
         </Row>
@@ -37,13 +49,17 @@ export default function SignInForm({ state, functions }) {
           <Col md={6}>
             <button className="social-btn">
               <i class="fab fa-google"></i>
-              Log in with Google
+              <a href="http://localhost:5000/users/googleLogin">
+                Log in with Google
+              </a>
             </button>
           </Col>
           <Col md={6}>
             <button className="social-btn">
               <i class="fab fa-facebook"></i>
-              Log in with Facebook
+              <a href="http://localhost:5000/users/facebookLogin">
+                Log in with Facebook
+              </a>
             </button>
           </Col>
         </Row>

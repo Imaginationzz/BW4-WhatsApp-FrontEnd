@@ -14,10 +14,6 @@ import "./Backgrounds.scss";
 
 export const LoginPageBG = function () {
   const emojiRows = setEmojisRows();
-  // setInterval(() => {
-
-  // }, 1000);
-  console.log(document.querySelectorAll("i"));
   return (
     <div id="login-bg">
       <div className="bg-emoji">

@@ -6,7 +6,7 @@ import { Form, InputGroup } from "react-bootstrap";
 //STYLE IMPORTS
 import "./CheckInputs.scss";
 
-export default function CheckInputs({ formDetails }) {
+export default function CheckInputs({ formDetails, functions }) {
   return (
     <Form.Group controlId={formDetails.id}>
       <Form.Label>{formDetails.placeholder}</Form.Label>
@@ -14,8 +14,9 @@ export default function CheckInputs({ formDetails }) {
         <Form.Control
           required
           type={formDetails.type}
-          id={formDetails.id}
+          // id={formDetails.id}
           placeholder={formDetails.placeholder}
+          onChange={functions}
         />
         <Form.Control.Feedback type="invalid">
           {formDetails.feedback.invalid}
