@@ -50,6 +50,7 @@
   height: 90vh;
 }
 .ProfilePicDiv {
+  position: relative;
   display: flex;
   flex: none;
   justify-content: center;
@@ -60,6 +61,25 @@
 .ProfilePic {
   width: 200px;
   height: 200px;
+  opacity: 1;
+  transition: .5s ease;
+  backface-visibility: hidden;
+}
+.ImageOverlay{
+  transition: .5s ease;
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  text-align: center;
+}
+.ProfilePicDiv:hover .ImageOverlay{
+  opacity: 1;
+}
+.ProfilePicDiv:hover .ProfilePic {
+  opacity: 0.3;
 }
 .NameDiv {
   margin-bottom: 10px;

@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from 'react'
 import TextField from '@material-ui/core/TextField';
 import { Image } from "react-bootstrap"
-import { MdEdit,MdDone } from "react-icons/md"
+import { MdEdit,MdDone,MdCameraAlt } from "react-icons/md"
 import{IoArrowBack} from "react-icons/io5"
 import "./ProfileEdit.css"
 
@@ -25,7 +25,11 @@ function ProfileEdit() {
             </div>
             <div className="EditPage">
                 <div className="ProfilePicDiv">
-                    <Image className="ProfilePic" src="https://via.placeholder.com/200" roundedCircle />
+                    <img className="ProfilePic" src="https://via.placeholder.com/200" />
+                    <div className="ImageOverlay">
+                        <MdCameraAlt className="CameraIcon"/>
+                        <span> Change Profile Picture</span>
+                    </div>
                 </div>
                 <div className="NameDiv">
                     <div className="NameHeader">
