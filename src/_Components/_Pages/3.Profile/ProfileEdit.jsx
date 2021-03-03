@@ -1,11 +1,16 @@
-import React from 'react'
+import React,{useState,useEffect} from 'react'
+import TextField from '@material-ui/core/TextField';
 import { Image } from "react-bootstrap"
-import { MdEdit } from "react-icons/md"
+import { MdEdit,MdDone } from "react-icons/md"
 import{IoArrowBack} from "react-icons/io5"
 import "./ProfileEdit.css"
 
 function ProfileEdit() {
-    
+    const [EditName, setEditName] = useState(false);
+    const [EditBio,setEditBio]= useState(false)
+    const [Name,setName] = useState("NamePlaceHolder")
+    const [Bio,setBio]=useState("BioPlaceHolder")
+
     return (
         <>
             <div className="Header">
@@ -28,10 +33,10 @@ function ProfileEdit() {
                     </div>
                     <div className="NameContent">
                         <div className="Name">
-                            <p>Name Placeholder</p>
+                            {EditName? <TextField id="standard-basic" defaultValue={Name} onChange={(event)=>setName(event.target.value)}/>:<p>{Name}</p>}
                         </div>
                         <div className="EditIcon">
-                            <MdEdit className="EditIcon" />
+                            {EditName?<MdDone className="EditIcon" onClick={()=>setEditName(false)}/>:<MdEdit className="EditIcon" onClick={()=>setEditName(true)}/>}
                         </div>
                     </div>
                 </div>
@@ -44,10 +49,10 @@ function ProfileEdit() {
                     </div>
                     <div className="BioContent">
                         <div className="Bio">
-                            <p>PlaceHolder Bio</p>
+                        {EditBio? <TextField id="standard-basic" defaultValue={Bio} onChange={(event)=>setBio(event.target.value)}/>:<p>{Bio}</p>}
                         </div>
                         <div className="EditIcon">
-                            <MdEdit className="EditIcon" />
+                        {EditBio?<MdDone className="EditIcon" onClick={()=>setEditBio(false)}/>:<MdEdit className="EditIcon" onClick={()=>setEditBio(true)}/>}
                         </div>
                     </div>
                 </div>
