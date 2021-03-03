@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 
+//REDUX IMPORTS
+import { useSelector } from "react-redux";
+
 //PERSONAL COMPONENTS IMPORTS
 import Attachments from "./Attachments/Attachments";
 

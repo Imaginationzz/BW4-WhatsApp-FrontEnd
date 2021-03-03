@@ -1,9 +1,14 @@
 import React from "react";
 
+//REDUX IMPORTS
+import { useSelector } from "react-redux";
+
 //STYLE IMPORTS
 import "./SideBar.scss";
 
 export default function SideBar({ user, chatList }) {
+  const userState = useSelector((state) => state.userState);
+
   return (
     <div id="sidebar">
       <div className="header">
@@ -21,10 +26,10 @@ export default function SideBar({ user, chatList }) {
         </div>
       </div>
       <div className="chat-list">
-        {chatList && chatList.length > 0 ? (
-          chatList.map((chat) => {
+        {userState.userList && userState.userList.length > 0 ? (
+          userState.userList.map((chat) => {
             return (
-              <div className="chat">
+              <div className="chat" key={chat._id}>
                 <img src="" alt="" />
                 <p>Name</p>
                 <p>Last Msg</p>
