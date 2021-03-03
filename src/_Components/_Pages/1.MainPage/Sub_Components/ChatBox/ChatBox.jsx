@@ -11,6 +11,7 @@ import "./ChatBox.scss";
 
 export default function ChatBox({ chat, messageList }) {
   const [showMedia, setShowMedia] = useState(false);
+  const chatState = useSelector((state) => state.chatState);
 
   return (
     <div id="chatbox">
@@ -20,7 +21,12 @@ export default function ChatBox({ chat, messageList }) {
             <div className="header">
               <div className="chat-info">
                 <img src="" alt="" />
-                <p>Name</p>
+                <p>
+                  {chatState.current_chat !== null &&
+                  chatState.current_chat.roomName
+                    ? chatState.current_chat.roomName
+                    : "none"}
+                </p>
               </div>
               <div className="chat-controllers">
                 <i className="fas fa-search"></i>
@@ -28,8 +34,8 @@ export default function ChatBox({ chat, messageList }) {
               </div>
             </div>
             <div className="message-list">
-              {messageList && messageList.length > 0 ? (
-                messageList.map((message) => {
+              {chatState.message && chatState.message.length > 0 ? (
+                chatState.message.map((message) => {
                   return <div className="message" key={message.id}></div>;
                 })
               ) : (

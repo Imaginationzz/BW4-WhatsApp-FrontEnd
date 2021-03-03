@@ -30,3 +30,9 @@ export const getAllMembers = async (token) => {
 export const sendMessage = (socket, message, roomName) => {
   return socket.emit("chat", { roomName, message });
 };
+
+// //JOIN ROOM
+// export const joinRoom = (socket, roomId, username) => {
+//   console.log("joined from utils");
+//   return socket.emit("joinRoom", { username, roomId });
+// };

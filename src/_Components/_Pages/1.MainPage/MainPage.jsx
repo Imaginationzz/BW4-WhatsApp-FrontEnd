@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 import io from "socket.io-client";
 
 //UTILITIES IMPORTS
-import { socketConnection, getAllMembers } from "./utilities";
+import { socketConnection, getAllMembers, joinRoom } from "./utilities";
 
 //REDUX ACTIONS
 import { setUserList } from "../../../Redux-Store/_Users/actions";
@@ -15,6 +15,8 @@ import { setUserList } from "../../../Redux-Store/_Users/actions";
 //PERSONAL COMPONENTS IMPORTS
 import SideBar from "./Sub_Components/SideBar/SideBar";
 import ChatBox from "./Sub_Components/ChatBox/ChatBox";
+import ContactList from "./Sub_Components/SideBar/Sub_Components/ContactList/ContactList";
+import NewGroupChat from "./Sub_Components/SideBar/Sub_Components/NewGroupChat/NewGroupChat";
 
 //BOOTSTRAP IMPORTS
 import { Row, Col, Alert } from "react-bootstrap";
@@ -22,21 +24,21 @@ import { Row, Col, Alert } from "react-bootstrap";
 //STYLE IMPORTS
 import "./MainPage.scss";
 
+let socket;
+
 export default function MainPage(props) {
   //STATES
   const [allowed, setAllowed] = useState(false);
+  const [sideBar, setSideBar] = useState("sidebar");
   //REDUX STATES
   const userState = useSelector((state) => state.userState);
   const tokenState = useSelector((state) => state.tokenState);
+  const chatState = useSelector((state) => state.chatState);
   //REDUX DISPATCH
   const dispatch = useDispatch();
-
   //SOCKET CONNECTION
-  let socket;
-  if (allowed) {
-    let userId = userState.user._id;
-    socket = socketConnection(userId, io);
-  }
+  let userId = userState.user._id;
+  socket = socketConnection(userId, io);
 
   useEffect(() => {
     (async () => {
@@ -46,6 +48,8 @@ export default function MainPage(props) {
           tokenState.access_token.access_token
         );
         dispatch(setUserList(allMembers));
+
+        // console.log(socket);
       } else {
         setAllowed(false);
         setTimeout(() => {
@@ -65,7 +69,13 @@ export default function MainPage(props) {
       )}
       <Row>
         <Col xs={12} md={4}>
-          <SideBar />
+          <SideBar
+            socket={socket}
+            state={sideBar}
+            functions={(comp) => setSideBar(comp)}
+          />
+          <ContactList state={sideBar} functions={setSideBar} />
+          <NewGroupChat state={sideBar} functions={setSideBar} />
         </Col>
         <Col xs={12} md={8}>
           <ChatBox />
