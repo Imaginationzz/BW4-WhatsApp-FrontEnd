@@ -23,3 +23,11 @@
     animation: $animation;
     -webkit-animation: $animation;
 }
+
+@mixin transition($transition){
+    transition: $transition;
+    -webkit-transition: $transition;
+    -moz-transition: $transition;
+    -ms-transition: $transition;
+    -o-transition: $transition;
+}

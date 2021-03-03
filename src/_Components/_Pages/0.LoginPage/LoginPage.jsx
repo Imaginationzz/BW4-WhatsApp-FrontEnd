@@ -23,7 +23,7 @@ import { LoginPageBG } from "../../_General_Components/1.Backgrounds/Backgrounds
 //STYLE IMPORTS
 import "./LoginPage.scss";
 
-export default function LoginPage() {
+export default function LoginPage(props) {
   const [form, setForm] = useState(false);
   const [isValid, setIsValid] = useState(false);
   const [login, setLogin] = useState(loginState);
@@ -34,10 +34,16 @@ export default function LoginPage() {
     checkValidity(e);
     setIsValid(true);
     if (form) {
-      await createUser(signIn);
+      let result = await createUser(signIn);
+      dispatch(setToken(result.access_token));
+      dispatch(setUser(result.user));
+      props.history.push("/main-page");
     } else {
-      const access_token = await authorizeUser(login);
-      dispatch(setToken(access_token));
+      let loginResult = await authorizeUser(login);
+      // const result = await authorizeUser(login);
+      dispatch(setToken(loginResult.access_token));
+      dispatch(setUser(loginResult.user));
+      props.history.push("/main-page");
     }
   };
 
