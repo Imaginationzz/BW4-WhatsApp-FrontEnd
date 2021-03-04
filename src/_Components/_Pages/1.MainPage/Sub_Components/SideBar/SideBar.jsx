@@ -23,6 +23,7 @@ import {
 
 //STYLE IMPORTS
 import "./SideBar.scss";
+import ProfileEdit from "./Sub_Components/3.Profile/Profile";
 
 const urlParams = new URLSearchParams(window.location.search);
 const userId = urlParams.get("userId");
@@ -65,9 +66,7 @@ export default function SideBar({ socket, functions }) {
   return (
     <div id="sidebar">
       <div className="header">
-        <Link to="/ProfileEdit">
-        <img src={userState.user.picture} alt="" />
-        </Link>
+        <img src={userState.user.picture} alt=""/>
         <div className="header-controllers">
           <i className="fas fa-sync"></i>
           <i

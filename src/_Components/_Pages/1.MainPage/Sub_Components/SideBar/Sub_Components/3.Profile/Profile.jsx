@@ -5,9 +5,10 @@ import { MdEdit, MdDone, MdCameraAlt } from "react-icons/md"
 import { IoArrowBack } from "react-icons/io5"
 import { useSelector } from "react-redux";
 import {Link} from "react-router-dom"
-import "./ProfileEdit.css"
+import "./ProfileEdit.scss"
+import Headers from '../Headers/Headers';
 
-function ProfileEdit({ user }) {
+function ProfileEdit({ state, functions }) {
     const userState = useSelector((state) => state.userState);
     const tokenState = useSelector((state) => state.tokenState);
     const [EditName, setEditName] = useState(false);
@@ -26,6 +27,7 @@ function ProfileEdit({ user }) {
         })
             .then(res => res.json())
             .then(json => console.log(json))
+            alert(`Successfully Changed UserName to ${Name}`)
         setEditName(false)
     }
 
@@ -39,23 +41,13 @@ function ProfileEdit({ user }) {
         })
             .then(res => res.json())
             .then(json => console.log(json))
+            alert(`Successfully Changed Bio to ${Bio}`)
         setEditBio(false)
     }
 
     return (
-        <>
-            <div className="Header">
-                <div className="HeaderContent">
-                    <div className="BackIconDiv">
-                        <Link to="/main-page">
-                        <IoArrowBack className="BackIcon" />
-                        </Link>
-                    </div>
-                    <div className="HeaderText">
-                        Profile
-                </div>
-                </div>
-            </div>
+        <div className="ProfileEdit" style={{ marginLeft: state === "profile" ? "" : "-100%" }}>
+            <Headers title="Profile" functions={functions} />
             <div className="EditPage">
                 <div className="ProfilePicDiv">
                     <Image className="ProfilePic" src={Picture} roundedCircle />
@@ -94,7 +86,7 @@ function ProfileEdit({ user }) {
                     </div>
                 </div>
             </div>
-        </>
+        </div>
     )
 }
 

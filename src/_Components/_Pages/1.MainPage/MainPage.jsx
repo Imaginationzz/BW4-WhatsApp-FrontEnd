@@ -33,6 +33,7 @@ import { Row, Col, Alert } from "react-bootstrap";
 
 //STYLE IMPORTS
 import "./MainPage.scss";
+import ProfileEdit from "./Sub_Components/SideBar/Sub_Components/3.Profile/Profile";
 
 let socket = socketConnection(io);
 const urlParams = new URLSearchParams(window.location.search);
@@ -71,7 +72,7 @@ export default function MainPage(props) {
       }
     })();
     // console.log(socket);
-    socket.on("connect", () => console.log("Connected"));
+    //socket.on("connect", () => console.log("Connected"));
   }, []);
 
   useEffect(() => {
@@ -132,6 +133,7 @@ export default function MainPage(props) {
           <StarMsg state={sideBar} functions={setSideBar} />
           <Settings state={sideBar} functions={setSideBar} />
           <Notifications state={sideBar} functions={setSideBar} />
+          <ProfileEdit state={sideBar} functions={setSideBar}/>
         </Col>
         <Col xs={12} md={8}>
           <ChatBox
