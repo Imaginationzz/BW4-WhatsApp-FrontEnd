@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 //REDUX IMPORTS
 import { useSelector } from "react-redux";
@@ -9,23 +9,22 @@ import Attachments from "./Attachments/Attachments";
 //STYLE IMPORTS
 import "./ChatBox.scss";
 
-export default function ChatBox({ chat, messageList }) {
+export default function ChatBox({ functions, state, messages }) {
   const [showMedia, setShowMedia] = useState(false);
   const chatState = useSelector((state) => state.chatState);
 
+  useEffect(() => {}, [state]);
+
   return (
     <div id="chatbox">
-      {!chat ? (
+      {state ? (
         <div className="chatbox-ui">
-          <div className="chat">
+          <div className="chat-container">
             <div className="header">
               <div className="chat-info">
                 <img src="" alt="" />
                 <p>
-                  {chatState.current_chat !== null &&
-                  chatState.current_chat.roomName
-                    ? chatState.current_chat.roomName
-                    : "none"}
+                  {state !== null && state.roomName ? state.roomName : "none"}
                 </p>
               </div>
               <div className="chat-controllers">
@@ -34,9 +33,14 @@ export default function ChatBox({ chat, messageList }) {
               </div>
             </div>
             <div className="message-list">
-              {chatState.message && chatState.message.length > 0 ? (
-                chatState.message.map((message) => {
-                  return <div className="message" key={message.id}></div>;
+              {messages && messages.length > 0 ? (
+                messages.map((message) => {
+                  return (
+                    <div className="message" key={message.id}>
+                      {message.sender}
+                      {message.text}
+                    </div>
+                  );
                 })
               ) : (
                 <p className="no-messages">No messages here.</p>
@@ -49,7 +53,12 @@ export default function ChatBox({ chat, messageList }) {
               className="fas fa-paperclip"
               onClick={() => setShowMedia(!showMedia)}
             ></i>
-            <input type="text" placeholder="Type text here" />
+            <input
+              type="text"
+              placeholder="Type text here"
+              onChange={functions}
+              onKeyDown={functions}
+            />
             <i className="fas fa-microphone"></i>
             <Attachments state={showMedia} />
           </div>

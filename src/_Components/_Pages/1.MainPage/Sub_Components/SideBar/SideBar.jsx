@@ -4,49 +4,62 @@ import React, { useEffect, useState } from "react";
 import io from "socket.io-client";
 
 //UTILITIES IMPORTS
-import { createConversation } from "./utilities";
+import { createConversation, getRooms } from "./utilities";
 import { socketConnection } from "../../utilities";
 
 //PERSONAL COMPONENTS IMPORTS
 import OptionsDropDown from "./Sub_Components/OptionsDropDown/OptionsDropDown";
+import NoResult from "./Sub_Components/NoResult/NoResult";
 
 //REDUX IMPORTS
 import { useSelector, useDispatch } from "react-redux";
 import {
   setCurrentChat,
   setMessagesList,
+  setChatList,
 } from "../../../../../Redux-Store/Chat/actions";
 
 //STYLE IMPORTS
 import "./SideBar.scss";
-let socket;
-export default function SideBar({ functions }) {
-  const [membersList, setMembersList] = useState([]);
+
+const urlParams = new URLSearchParams(window.location.search);
+const userId = urlParams.get("userId");
+
+export default function SideBar({ socket, functions }) {
+  const [counter, setCounter] = useState(0);
+  const [chatList, setChatList] = useState([]);
   const [options, setOptions] = useState(false);
 
   const userState = useSelector((state) => state.userState);
   const tokenState = useSelector((state) => state.tokenState);
   const chatState = useSelector((state) => state.chatState);
   const dispatch = useDispatch();
-  let userId = userState.user._id;
-  socket = socketConnection(userId, io);
 
-  const createConvo = async (user) => {
-    let usersId = [{ memberId: userState.user._id }, { memberId: user._id }];
-    const newRoom = await createConversation(
-      user.username,
-      usersId,
-      tokenState.access_token
-    );
-    dispatch(setCurrentChat(newRoom));
-    // console.log(newRoom);
-    socket.emit("joinRoom", { username: user.username, roomId: newRoom._id });
-    socket.on("membersList", (membersList) => console.log(membersList.list));
-    socket.on("message", (msg) =>
-      dispatch(setMessagesList((messagesList) => messagesList.concat(msg)))
-    );
-    console.log("joined", membersList);
-  };
+  // const createConvo = async (user) => {
+  //   let usersId = [{ memberId: userState.user._id }, { memberId: user._id }];
+  //   const newRoom = await createConversation(
+  //     user.username,
+  //     usersId,
+  //     tokenState.access_token
+  //   );
+  //   dispatch(setCurrentChat(newRoom));
+  //   // console.log(newRoom);
+  //   socket.emit("joinRoom", { username: user.username, roomId: newRoom._id });
+  //   socket.on("membersList", (membersList) => console.log(membersList.list));
+  //   socket.on("message", (msg) =>
+  //     dispatch(setMessagesList((messagesList) => messagesList.concat(msg)))
+  //   );
+  //   console.log("joined", membersList);
+  // };
+  useEffect(() => {
+    (async () => {
+      let rooms = await getRooms(userId);
+      setChatList(rooms);
+      // dispatch(setChatList(rooms));
+    })();
+    setCounter(counter + 1);
+  }, []);
+  console.log("joined");
 
   return (
     <div id="sidebar">
@@ -70,23 +83,23 @@ export default function SideBar({ functions }) {
         </div>
       </div>
       <div className="chat-list">
-        {chatState.chatList && chatState.chatList.length > 0 ? (
-          chatState.chatList.map((chat) => {
+        {chatList && chatList.length > 0 ? (
+          chatList.map((chat) => {
             return (
-              <div className="chat" key={chat._id}>
+              <div className="chat" key={chat._id} onClick={() => socket(chat)}>
                 <img src="" alt="" />
                 <div className="chat-details">
-                  <p>chat name</p>
+                  <p>{chat.roomName}</p>
                   <p>Last Msg</p>
                 </div>
               </div>
             );
           })
         ) : (
-          <p className="no-result">
-            No Chats are here click on message icon to start a conversation or
-            create a chat group.
-          </p>
+          <NoResult
+            title="No Chats are here click on message icon to start a conversation or create a chat group."
+            icon="far fa-comments"
+          />
         )}
       </div>
     </div>

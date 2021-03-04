@@ -1,0 +1,33 @@
+@import "../../../../../../../../_General_Style/SASS/All";
+.notifications{
+    height:100%;
+    width:100%;
+    position: absolute;
+    top: 0;
+    background-color:#131c21;
+    z-index: 10;
+    @include transition(margin-left .3s ease-in-out);
+    ul{
+        margin: 0;
+        list-style: none;
+        padding: 2rem;
+        li{
+            @include flexCentered(row, none, center);
+            padding: .5rem 0;
+            input[type=checkbox]{
+                width: 20px;
+                height: 20px;
+                background-color: transparent;
+                margin-right: 1rem;
+            }
+            color: #fff;
+            .description{
+                p{
+                    font-size: .8rem;
+                    color: rgba(255, 255, 255, .5);
+                }
+            }
+
+        }
+    }
+}

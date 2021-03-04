@@ -9,6 +9,8 @@ import { useSelector } from "react-redux";
 
 //STYLE IMPORTS
 import "./NewGroupChat.scss";
+import Headers from "../Headers/Headers";
+import NoResult from "../NoResult/NoResult";
 
 export default function NewGroupChat({ state, functions }) {
   //STATE
@@ -36,15 +38,10 @@ export default function NewGroupChat({ state, functions }) {
       className="newGroup"
       style={{ marginLeft: state === "newGroup" ? "" : "-100%" }}
     >
-      <div className="header">
-        <div className="header-controllers">
-          <i
-            className="fas fa-arrow-left"
-            onClick={() => functions("sidebar")}
-          ></i>
-          <p>Add group participants</p>
-        </div>
-      </div>
+      <Headers
+        title="Add group participants"
+        functions={() => functions("sidebar")}
+      />
       <div className="searchbar">
         <input
           type="text"
@@ -58,7 +55,10 @@ export default function NewGroupChat({ state, functions }) {
             return <Chat user={user} key={user._id} />;
           })
         ) : (
-          <p className="no-result">There are no user connected to whatsapp</p>
+          <NoResult
+            title="There are no user connected to whatsapp"
+            icon="fas fa-users-slash"
+          />
         )}
       </div>
     </div>

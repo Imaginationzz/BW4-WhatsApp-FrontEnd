@@ -25,11 +25,14 @@ export const createConversation = async (username, usersId, token) => {
 };
 
 //GET ROOMSLIST
-export const getRooms = async () => {
+export const getRooms = async (userId) => {
   let response = await fetch(`${process.env.REACT_APP_URL_DEV}/rooms`);
   let result = await response.json();
+  let userRooms = result.filter((room) =>
+    room.membersList.some((member) => member.memberId === userId)
+  );
   // console.log("rooms", result);
-  return result;
+  return userRooms;
 };
 
 //GET USER
@@ -39,6 +42,7 @@ export const getMember = async (token) => {
     headers: { Authorization: `Bearer ${token.access_token}` },
   });
   let result = await response.json();
+
   // console.log("getMember", result);
   return result;
 };

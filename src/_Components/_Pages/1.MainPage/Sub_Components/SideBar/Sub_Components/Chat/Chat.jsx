@@ -3,13 +3,13 @@ import React from "react";
 //STYLE IMPORTS
 import "./Chat.scss";
 
-export default function Chat({ user }) {
+export default function Chat({ user, functions, lastMessage }) {
   return (
-    <div className="chat" key={user._id}>
-      <img src="" alt="" />
+    <div className="chat" key={user._id} onClick={functions}>
+      <img src={user.picture ? user.picture : ""} alt="" />
       <div className="chat-details">
         <p>{user.username}</p>
-        <p>Last Msg</p>
+        <p>{lastMessage ? lastMessage : user.bio}</p>
       </div>
     </div>
   );
