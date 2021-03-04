@@ -1,43 +1,49 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react"
 
 //UTILITIES IMPORTS
-import { getProfile } from "./utilities";
+import { getProfile } from "./utilities"
 
 //REDUX IMPORTS
-import { useSelector } from "react-redux";
+import { useSelector } from "react-redux"
 
 //PERSONAL COMPONENTS IMPORTS
-import Attachments from "./Attachments/Attachments";
-import Message from "./Message/Message";
+import Attachments from "./Attachments/Attachments"
+import Message from "./Message/Message"
 
 //STYLE IMPORTS
-import "./ChatBox.scss";
+import "./ChatBox.scss"
 
-export default function ChatBox({ functions, state, messages, inputMsg }) {
-  const [showMedia, setShowMedia] = useState(false);
-  const [chatName, setChatName] = useState("none");
-  const userState = useSelector((state) => state.userState);
+export default function ChatBox({
+  functions,
+  state,
+  messages,
+  inputMsg,
+  handleImage,
+}) {
+  const [showMedia, setShowMedia] = useState(false)
+  const [chatName, setChatName] = useState("none")
+  const userState = useSelector((state) => state.userState)
 
   useEffect(() => {
-    (async () => {
+    ;(async () => {
       if (state) {
         let otherUserId = state.membersList.find(
           (user) => user !== userState.user._id
-        );
-        let profile = await getProfile(otherUserId);
-        setChatName(profile.username);
+        )
+        let profile = await getProfile(otherUserId)
+        setChatName(profile.username)
       }
-    })();
-  }, [state]);
+    })()
+  }, [state])
 
   useEffect(() => {
-    let chatBox = document.querySelector(".message-list");
+    let chatBox = document.querySelector(".message-list")
     if (chatBox) {
       let scrollToBtm = (function () {
-        chatBox.scrollTop = chatBox.scrollHeight;
-      })();
+        chatBox.scrollTop = chatBox.scrollHeight
+      })()
     }
-  }, [messages]);
+  }, [messages])
 
   return (
     <div id="chatbox">
@@ -71,7 +77,7 @@ export default function ChatBox({ functions, state, messages, inputMsg }) {
                       user={userState.user.username}
                       message={message.text}
                     />
-                  );
+                  )
                 })
               ) : (
                 <p className="no-messages">No messages here.</p>
@@ -92,7 +98,7 @@ export default function ChatBox({ functions, state, messages, inputMsg }) {
               value={inputMsg}
             />
             <i className="fas fa-microphone"></i>
-            <Attachments state={showMedia} />
+            <Attachments state={showMedia} handleImage={handleImage} />
           </div>
         </div>
       ) : (
@@ -106,5 +112,5 @@ export default function ChatBox({ functions, state, messages, inputMsg }) {
         </div>
       )}
     </div>
-  );
+  )
 }

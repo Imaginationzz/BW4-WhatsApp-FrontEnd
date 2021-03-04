@@ -1,40 +1,41 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react"
 
 //PERSONAL COMPONENTS IMPORTS
-import { ChatContainer } from "../Chat/Chat";
-import Chat from "../Chat/Chat";
-import Headers from "../Headers/Headers";
-import NoResult from "../NoResult/NoResult";
+import { ChatContainer } from "../Chat/Chat"
+import Chat from "../Chat/Chat"
+import Headers from "../Headers/Headers"
+import NoResult from "../NoResult/NoResult"
 
 //REDUX IMPORTS
-import { useSelector } from "react-redux";
+import { useSelector } from "react-redux"
 
 //STYLE IMPORTS
-import "./ContactList.scss";
+import "./ContactList.scss"
 
 export default function ContactList({ state, functions, socket }) {
   //STATE
-  const [list, setList] = useState([]);
+  const [list, setList] = useState([])
   //REDUX STATE
-  const userState = useSelector((state) => state.userState);
-  const userList = userState.userList;
+  const userState = useSelector((state) => state.userState)
+  const userList = userState.userList // add userlist initially
+  console.log(userList)
 
   // console.log(userList);
 
   useEffect(() => {
-    setList(userList);
-  }, [state]);
+    setList(userList)
+  }, [state])
 
   //FILTER USERS
   const searchUser = (e) => {
     if (e.currentTarget.value !== "") {
       setList(
         list.filter((user) => user.username.includes(e.currentTarget.value))
-      );
+      )
     } else {
-      setList(userList);
+      setList(userList)
     }
-  };
+  }
 
   return (
     <div
@@ -69,7 +70,7 @@ export default function ContactList({ state, functions, socket }) {
                 key={user._id}
                 functions={() => socket.setChat(user, true)}
               />
-            );
+            )
           })
         ) : (
           <NoResult
@@ -79,5 +80,5 @@ export default function ContactList({ state, functions, socket }) {
         )}
       </div>
     </div>
-  );
+  )
 }
