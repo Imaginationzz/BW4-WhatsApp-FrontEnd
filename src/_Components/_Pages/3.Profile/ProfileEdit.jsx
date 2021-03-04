@@ -3,13 +3,17 @@ import TextField from '@material-ui/core/TextField';
 import { Image } from "react-bootstrap"
 import { MdEdit,MdDone,MdCameraAlt } from "react-icons/md"
 import{IoArrowBack} from "react-icons/io5"
+import { useSelector } from "react-redux";
 import "./ProfileEdit.css"
 
-function ProfileEdit() {
+function ProfileEdit({ user}) {
+    const userState = useSelector((state) => state.userState);
     const [EditName, setEditName] = useState(false);
     const [EditBio,setEditBio]= useState(false)
-    const [Name,setName] = useState("NamePlaceHolder")
-    const [Bio,setBio]=useState("BioPlaceHolder")
+    const [Name,setName] = useState(userState.user.username)
+    const [Bio,setBio]=useState(userState.user.bio)
+    const [Picture,setPicture]=useState(userState.user.picture)
+    console.log(userState.user)
 
     return (
         <>
@@ -25,7 +29,7 @@ function ProfileEdit() {
             </div>
             <div className="EditPage">
                 <div className="ProfilePicDiv">
-                    <img className="ProfilePic" src="https://via.placeholder.com/200" />
+                    <Image className="ProfilePic" src={Picture} roundedCircle/>
                     <div className="ImageOverlay">
                         <MdCameraAlt className="CameraIcon"/>
                         <span> Change Profile Picture</span>

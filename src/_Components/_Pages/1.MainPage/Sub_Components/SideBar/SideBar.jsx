@@ -1,4 +1,5 @@
 import React from "react";
+import {Link} from "react-router-dom"
 
 //REDUX IMPORTS
 import { useSelector } from "react-redux";
@@ -8,11 +9,13 @@ import "./SideBar.scss";
 
 export default function SideBar({ user, chatList }) {
   const userState = useSelector((state) => state.userState);
-
+  console.log(userState)
   return (
     <div id="sidebar">
       <div className="header">
-        <img src="" alt="" />
+        <Link to="/ProfileEdit">
+        <img src={userState.user.picture} alt="" />
+        </Link>
         <div className="header-controllers">
           <i className="fas fa-sync"></i>
           <i className="far fa-comment"></i>
