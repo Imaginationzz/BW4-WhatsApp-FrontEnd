@@ -22,6 +22,7 @@ import {
 
 //STYLE IMPORTS
 import "./SideBar.scss";
+import ProfileEdit from "./Sub_Components/3.Profile/Profile";
 
 const urlParams = new URLSearchParams(window.location.search);
 const userId = urlParams.get("userId");
