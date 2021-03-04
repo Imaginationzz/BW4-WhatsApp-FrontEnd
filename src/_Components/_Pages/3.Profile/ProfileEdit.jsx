@@ -1,37 +1,66 @@
-import React,{useState,useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import TextField from '@material-ui/core/TextField';
 import { Image } from "react-bootstrap"
-import { MdEdit,MdDone,MdCameraAlt } from "react-icons/md"
-import{IoArrowBack} from "react-icons/io5"
+import { MdEdit, MdDone, MdCameraAlt } from "react-icons/md"
+import { IoArrowBack } from "react-icons/io5"
 import { useSelector } from "react-redux";
+import {Link} from "react-router-dom"
 import "./ProfileEdit.css"
 
-function ProfileEdit({ user}) {
+function ProfileEdit({ user }) {
     const userState = useSelector((state) => state.userState);
+    const tokenState = useSelector((state) => state.tokenState);
     const [EditName, setEditName] = useState(false);
-    const [EditBio,setEditBio]= useState(false)
-    const [Name,setName] = useState(userState.user.username)
-    const [Bio,setBio]=useState(userState.user.bio)
-    const [Picture,setPicture]=useState(userState.user.picture)
-    console.log(userState.user)
+    const [EditBio, setEditBio] = useState(false)
+    const [Name, setName] = useState(userState.user.username)
+    const [Bio, setBio] = useState(userState.user.bio)
+    const [Picture, setPicture] = useState(userState.user.picture)
+
+    const updateName = async () => {
+        await fetch("http://localhost:5000/users/profile", { method: "PUT", 
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + tokenState.access_token.access_token
+        },
+        body: JSON.stringify({"username":Name})
+        })
+            .then(res => res.json())
+            .then(json => console.log(json))
+        setEditName(false)
+    }
+
+    const updateBio = async () => {
+        await fetch("http://localhost:5000/users/profile", { method: "PUT", 
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + tokenState.access_token.access_token
+        },
+        body: JSON.stringify({"bio":Bio})
+        })
+            .then(res => res.json())
+            .then(json => console.log(json))
+        setEditBio(false)
+    }
 
     return (
         <>
             <div className="Header">
                 <div className="HeaderContent">
-                <div className="BackIconDiv">
-                <IoArrowBack className="BackIcon"/>
-                </div>
-                <div className="HeaderText">
-                    Profile
+                    <div className="BackIconDiv">
+                        <Link to="/main-page">
+                        <IoArrowBack className="BackIcon" />
+                        </Link>
+                    </div>
+                    <div className="HeaderText">
+                        Profile
                 </div>
                 </div>
             </div>
             <div className="EditPage">
                 <div className="ProfilePicDiv">
-                    <Image className="ProfilePic" src={Picture} roundedCircle/>
+                    <Image className="ProfilePic" src={Picture} roundedCircle />
                     <div className="ImageOverlay">
-                        <MdCameraAlt className="CameraIcon"/>
+                        <MdCameraAlt className="CameraIcon" />
                         <span> Change Profile Picture</span>
                     </div>
                 </div>
@@ -41,10 +70,10 @@ function ProfileEdit({ user}) {
                     </div>
                     <div className="NameContent">
                         <div className="Name">
-                            {EditName? <TextField id="standard-basic" defaultValue={Name} onChange={(event)=>setName(event.target.value)}/>:<p>{Name}</p>}
+                            {EditName ? <TextField id="standard-basic" defaultValue={Name} onChange={(event) => setName(event.target.value)} /> : <p>{Name}</p>}
                         </div>
                         <div className="EditIcon">
-                            {EditName?<MdDone className="EditIcon" onClick={()=>setEditName(false)}/>:<MdEdit className="EditIcon" onClick={()=>setEditName(true)}/>}
+                            {EditName ? <MdDone className="EditIcon" onClick={updateName} /> : <MdEdit className="EditIcon" onClick={() => setEditName(true)} />}
                         </div>
                     </div>
                 </div>
@@ -57,10 +86,10 @@ function ProfileEdit({ user}) {
                     </div>
                     <div className="BioContent">
                         <div className="Bio">
-                        {EditBio? <TextField id="standard-basic" defaultValue={Bio} onChange={(event)=>setBio(event.target.value)}/>:<p>{Bio}</p>}
+                            {EditBio ? <TextField id="standard-basic" defaultValue={Bio} onChange={(event) => setBio(event.target.value)} /> : <p>{Bio}</p>}
                         </div>
                         <div className="EditIcon">
-                        {EditBio?<MdDone className="EditIcon" onClick={()=>setEditBio(false)}/>:<MdEdit className="EditIcon" onClick={()=>setEditBio(true)}/>}
+                            {EditBio ? <MdDone className="EditIcon" onClick={updateBio} /> : <MdEdit className="EditIcon" onClick={() => setEditBio(true)} />}
                         </div>
                     </div>
                 </div>
