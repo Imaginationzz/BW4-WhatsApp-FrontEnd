@@ -1,0 +1,28 @@
+@import '../../../../../../_General_Style/SASS/All';
+.newGroup{
+    height:100%;
+    width:100%;
+    position: absolute;
+    top: 0;
+    background-color:#131c21;
+    z-index: 10;
+    @include transition(margin-left .3s ease-in-out);
+    .searchbar{
+        height: 8vh;
+        padding-bottom: 1rem;
+        input{
+            width: calc(100% - 1.5rem);
+            margin-top: 1.5rem;
+            margin-left: 1.5rem;
+            border: none;
+            outline: none;
+            border-bottom: 1px solid rgba(255, 255, 255, .1);
+            color: rgba(255, 255, 255, .5);
+            background-color: transparent;
+        }
+    }
+    .contacts{
+        height: calc(100% - 28vh);
+        overflow-y: auto;
+    }
+}

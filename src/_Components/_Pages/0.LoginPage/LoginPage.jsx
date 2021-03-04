@@ -37,13 +37,13 @@ export default function LoginPage(props) {
       let result = await createUser(signIn);
       dispatch(setToken(result.access_token));
       dispatch(setUser(result.user));
-      props.history.push("/main-page");
+      props.history.push(`/main-page/?userId=${result.user._id}`);
     } else {
       let loginResult = await authorizeUser(login);
       // const result = await authorizeUser(login);
       dispatch(setToken(loginResult.access_token));
       dispatch(setUser(loginResult.user));
-      props.history.push("/main-page");
+      props.history.push(`/main-page/?userId=${loginResult.user._id}`);
     }
   };
 
