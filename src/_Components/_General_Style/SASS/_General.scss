@@ -1,0 +1,33 @@
+@mixin searchBar(){
+    width: 100%;
+    height: 8vh;
+        padding: 5px 15px;
+        border-bottom: 1px solid rgba(255, 255, 255, .1);
+        background-color: #131C21;
+        .search-container{
+            border: 1px solid rgba(0, 0, 0, .5);
+            background-color: #2A2F32;
+            color: rgba(255, 255, 255, .6);
+            height: 40px;
+            padding: 5px 0;
+            border-radius: 9999px;
+            -webkit-border-radius: 9999px;
+            -moz-border-radius: 9999px;
+            -ms-border-radius: 9999px;
+            -o-border-radius: 9999px;
+            i{
+                width: 1rem;
+                margin: 0 1rem;
+            }
+            input{
+                background-color: transparent;
+                font-weight: 600;
+                width: calc(100% - 3.5rem);
+                height: 90%;
+                border: none;
+                outline: none;
+                color: rgba(255, 255, 255, .6);
+                
+            }
+        }
+}

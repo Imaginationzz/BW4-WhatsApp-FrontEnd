@@ -1,0 +1,16 @@
+@import "../../../../../../_General_Style/SASS/All";
+#settings{
+    height:100%;
+    width:100%;
+    position: absolute;
+    top: 0;
+    background-color:#131c21;
+    z-index: 10;
+    @include transition(margin-left .3s ease-in-out);
+    .header{
+        height: 15vh;
+    }
+    .current-user{
+        
+    }
+}

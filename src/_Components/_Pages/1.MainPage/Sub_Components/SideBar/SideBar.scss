@@ -5,7 +5,7 @@
     @include flexCentered(column, none, center);
     .header{
         width: 100%;
-        height: 70px !important;
+        height: 12vh;
         padding: 5px 20px;
         @include flexCentered(row, space-between, center);
         border-bottom: 1px solid rgba(255, 255, 255, .1);
@@ -18,6 +18,7 @@
         .header-controllers{
             @include flexCentered(row, space-evenly, center);
             i{
+                position: relative;
                 margin: 0 1.5rem;
                 font-size: 1.25rem;
                 color: rgba(255, 255, 255, .6);
@@ -29,46 +30,12 @@
         }
     }
     .searchbar{
-        width: 100%;
-        padding: 5px 15px;
-        border-bottom: 1px solid rgba(255, 255, 255, .1);
-        background-color: #131C21;
-        .search-container{
-            @include bordered(9999px);
-            border: 1px solid rgba(0, 0, 0, .5);
-            background-color: #2A2F32;
-            color: rgba(255, 255, 255, .6);
-            height: 40px;
-            padding: 5px 0;
-            i{
-                width: 1rem;
-                margin: 0 1rem;
-            }
-            input{
-                background-color: transparent;
-                font-weight: 600;
-                width: calc(100% - 3.5rem);
-                height: 90%;
-                border: none;
-                outline: none;
-                color: rgba(255, 255, 255, .6);
-                
-            }
-        }
+        @include searchBar();
     }
     .chat-list{
-        height: 100%;
+        height: calc(100% - 20vh);
         background-color: #131C21;
         width: 100%;
-        padding: 1rem 0;
-        .no-result{
-            width: 100%;
-            text-align: center;
-            font-size: 1.5rem;
-            color: white;
-        }
-        .chat{
-            color: white;
-        }
+        overflow-y: auto;
     }
 }
