@@ -34,9 +34,17 @@ import { Row, Col, Alert } from "react-bootstrap";
 //STYLE IMPORTS
 import "./MainPage.scss";
 
-let socket = socketConnection(io);
-const urlParams = new URLSearchParams(window.location.search);
-const userId = urlParams.get("userId");
+// const urlParams = new URLSearchParams(window.location.search);
+// const userId = urlParams.get("userId");
+// let socket;
+// if (!userId) {
+//   socket = null;
+// } else {
+const connOpt = {
+  transports: ["websocket", "polling"],
+};
+let socket = io(process.env.REACT_APP_URL_DEV, connOpt);
+// }
 
 export default function MainPage(props) {
   //STATES
@@ -70,6 +78,9 @@ export default function MainPage(props) {
         }, 3000);
       }
     })();
+    socket.on("message", (msg) =>
+      setMessages((messages) => messages.concat(msg))
+    );
     // console.log(socket);
     socket.on("connect", () => console.log("Connected"));
   }, []);
@@ -78,31 +89,31 @@ export default function MainPage(props) {
     (async () => {
       if (currentChat) {
         setMessages([]);
-        socket.emit("joinRoom", { roomId: currentChat._id });
+        socket.emit("joinRoom", {
+          roomId: currentChat._id,
+          username: userState.user._id,
+        });
         const room = await getRoom(currentChat._id);
-        socket.on("message", (msg) =>
-          setMessages((messages) => messages.concat(msg))
-        );
-        socket.emit("leaveRoom", { roomId: currentChat._id });
+        setMessages(room.messages);
+
+        // socket.emit("leaveRoom", { roomId: currentChat._id });
       }
     })();
   }, [currentChat]);
 
-  const joinRoom = async (user) => {
-    let usersId = [user._id, userId];
-    await createRoom(user.username, usersId);
-    setCurrentChat(user);
-
-    // socket.emit("joinRoom", {roomId})
+  const joinRoom = async (user, isPrivate) => {
+    let usersId = [{ user }, { user: userState.user }];
+    let roomPic;
+    isPrivate ? (roomPic = user.picture) : (roomPic = null);
+    const newRoom = await createRoom(user.username, usersId, roomPic);
+    setCurrentChat(newRoom._id);
+    setSideBar("sidebar");
   };
 
   const handleMessage = async (e) => {
     if (e.keyCode === 13 || e.key === "Enter") {
+      setMessage("");
       socket.emit("chat", { message, roomId: currentChat._id });
-      const newMessage = await saveMessage({
-        text: message,
-        sender: userState.user.username,
-      });
     } else {
       setMessage(e.currentTarget.value);
     }
@@ -121,6 +132,7 @@ export default function MainPage(props) {
           <SideBar
             socket={setCurrentChat}
             functions={(comp) => setSideBar(comp)}
+            state={sideBar}
           />
           <ContactList
             state={sideBar}
@@ -138,6 +150,7 @@ export default function MainPage(props) {
             functions={handleMessage}
             state={currentChat}
             messages={messages}
+            inputMsg={message}
           />
         </Col>
       </Row>
