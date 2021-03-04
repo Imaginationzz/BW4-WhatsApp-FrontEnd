@@ -10,6 +10,8 @@ import { socketConnection } from "../../utilities";
 //PERSONAL COMPONENTS IMPORTS
 import OptionsDropDown from "./Sub_Components/OptionsDropDown/OptionsDropDown";
 import NoResult from "./Sub_Components/NoResult/NoResult";
+import {Link} from "react-router-dom"
+
 
 //REDUX IMPORTS
 import { useSelector, useDispatch } from "react-redux";
@@ -60,11 +62,12 @@ export default function SideBar({ socket, functions }) {
     setCounter(counter + 1);
   }, []);
   console.log("joined");
-
   return (
     <div id="sidebar">
       <div className="header">
-        <img src="" alt="" />
+        <Link to="/ProfileEdit">
+        <img src={userState.user.picture} alt="" />
+        </Link>
         <div className="header-controllers">
           <i className="fas fa-sync"></i>
           <i

@@ -162,3 +162,9 @@
     flex: 1;
     overflow: hidden;
 }
+.MuiInputBase-input{
+  width: 100vw;
+}
+a {
+	color: White;
+}
