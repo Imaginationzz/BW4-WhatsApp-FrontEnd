@@ -23,9 +23,7 @@ export default function ContactList({ state, functions, socket }) {
 
   useEffect(() => {
     setList(userList);
-  }, []);
-
-  console.log("join");
+  }, [state]);
 
   //FILTER USERS
   const searchUser = (e) => {
@@ -69,7 +67,7 @@ export default function ContactList({ state, functions, socket }) {
               <Chat
                 user={user}
                 key={user._id}
-                functions={() => socket.setChat(user)}
+                functions={() => socket.setChat(user, true)}
               />
             );
           })

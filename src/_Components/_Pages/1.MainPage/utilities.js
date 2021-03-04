@@ -2,7 +2,7 @@
 export const socketConnection = (io) => {
   const urlParams = new URLSearchParams(window.location.search);
   const userId = urlParams.get("userId");
-  console.log(userId);
+  // console.log(userId);
   let socket;
   if (!userId) {
     socket = null;
@@ -35,14 +35,23 @@ export const sendMessage = (socket, message, roomName) => {
 };
 
 //CREATE ROOM
-export const createRoom = async (roomName, usersId) => {
-  let members = usersId.map((user) => {
-    return { memberId: user };
+export const createRoom = async (roomName, users, picture) => {
+  let members = users.map((user) => {
+    return user.user._id;
   });
-  let body = {
-    roomName,
-    membersList: members,
-  };
+  let body;
+  if (picture) {
+    body = {
+      roomPicture: picture,
+      roomName,
+      membersList: members,
+    };
+  } else {
+    body = {
+      roomName,
+      membersList: members,
+    };
+  }
   let response = await fetch(`${process.env.REACT_APP_URL_DEV}/rooms`, {
     method: "POST",
     body: JSON.stringify(body),
@@ -51,7 +60,7 @@ export const createRoom = async (roomName, usersId) => {
     }),
   });
   let result = await response.json();
-  // console.log("utils 54", result);
+  // console.log("utils 54", roomName, users);
   return result;
 };
 
@@ -61,18 +70,5 @@ export const getRoom = async (roomId) => {
     `${process.env.REACT_APP_URL_DEV}/rooms/${roomId}`
   );
   let result = await response.json();
-  console.log("utils 62", result);
-  return result;
-};
-
-//SAVE MESSAGE
-export const saveMessage = async (body) => {
-  let response = await fetch(`${process.env.REACT_APP_URL_DEV}/messages`, {
-    method: "POST",
-    body: JSON.stringify(body),
-    headers: new Headers({ "Content-Type": "application/json" }),
-  });
-  let result = await response.json();
-  console.log("save message", result);
   return result;
 };

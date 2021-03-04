@@ -1,19 +1,43 @@
 import React, { useState, useEffect } from "react";
 
+//UTILITIES IMPORTS
+import { getProfile } from "./utilities";
+
 //REDUX IMPORTS
 import { useSelector } from "react-redux";
 
 //PERSONAL COMPONENTS IMPORTS
 import Attachments from "./Attachments/Attachments";
+import Message from "./Message/Message";
 
 //STYLE IMPORTS
 import "./ChatBox.scss";
 
-export default function ChatBox({ functions, state, messages }) {
+export default function ChatBox({ functions, state, messages, inputMsg }) {
   const [showMedia, setShowMedia] = useState(false);
-  const chatState = useSelector((state) => state.chatState);
+  const [chatName, setChatName] = useState("none");
+  const userState = useSelector((state) => state.userState);
 
-  useEffect(() => {}, [state]);
+  useEffect(() => {
+    (async () => {
+      if (state) {
+        let otherUserId = state.membersList.find(
+          (user) => user !== userState.user._id
+        );
+        let profile = await getProfile(otherUserId);
+        setChatName(profile.username);
+      }
+    })();
+  }, [state]);
+
+  useEffect(() => {
+    let chatBox = document.querySelector(".message-list");
+    if (chatBox) {
+      let scrollToBtm = (function () {
+        chatBox.scrollTop = chatBox.scrollHeight;
+      })();
+    }
+  }, [messages]);
 
   return (
     <div id="chatbox">
@@ -22,10 +46,15 @@ export default function ChatBox({ functions, state, messages }) {
           <div className="chat-container">
             <div className="header">
               <div className="chat-info">
-                <img src="" alt="" />
-                <p>
-                  {state !== null && state.roomName ? state.roomName : "none"}
-                </p>
+                <img
+                  src={
+                    state.roomPicture
+                      ? state.roomPicture
+                      : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+                  }
+                  alt=""
+                />
+                <p>{chatName}</p>
               </div>
               <div className="chat-controllers">
                 <i className="fas fa-search"></i>
@@ -36,10 +65,12 @@ export default function ChatBox({ functions, state, messages }) {
               {messages && messages.length > 0 ? (
                 messages.map((message) => {
                   return (
-                    <div className="message" key={message.id}>
-                      {message.sender}
-                      {message.text}
-                    </div>
+                    <Message
+                      key={message.id}
+                      sender={message.sender}
+                      user={userState.user.username}
+                      message={message.text}
+                    />
                   );
                 })
               ) : (
@@ -58,6 +89,7 @@ export default function ChatBox({ functions, state, messages }) {
               placeholder="Type text here"
               onChange={functions}
               onKeyDown={functions}
+              value={inputMsg}
             />
             <i className="fas fa-microphone"></i>
             <Attachments state={showMedia} />
