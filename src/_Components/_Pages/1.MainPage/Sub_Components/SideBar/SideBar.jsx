@@ -4,14 +4,13 @@ import React, { useEffect, useState } from "react";
 import io from "socket.io-client";
 
 //UTILITIES IMPORTS
-import { createConversation, getRooms } from "./utilities";
+import { getRooms } from "./utilities";
 import { socketConnection } from "../../utilities";
 
 //PERSONAL COMPONENTS IMPORTS
 import OptionsDropDown from "./Sub_Components/OptionsDropDown/OptionsDropDown";
 import NoResult from "./Sub_Components/NoResult/NoResult";
-import {Link} from "react-router-dom"
-
+import { Link } from "react-router-dom";
 
 //REDUX IMPORTS
 import { useSelector, useDispatch } from "react-redux";
@@ -28,7 +27,7 @@ import ProfileEdit from "./Sub_Components/3.Profile/Profile";
 const urlParams = new URLSearchParams(window.location.search);
 const userId = urlParams.get("userId");
 
-export default function SideBar({ socket, functions }) {
+export default function SideBar({ socket, functions, state }) {
   const [counter, setCounter] = useState(0);
   const [chatList, setChatList] = useState([]);
   const [options, setOptions] = useState(false);
@@ -38,35 +37,20 @@ export default function SideBar({ socket, functions }) {
   const chatState = useSelector((state) => state.chatState);
   const dispatch = useDispatch();
 
-  // const createConvo = async (user) => {
-  //   let usersId = [{ memberId: userState.user._id }, { memberId: user._id }];
-  //   const newRoom = await createConversation(
-  //     user.username,
-  //     usersId,
-  //     tokenState.access_token
-  //   );
-  //   dispatch(setCurrentChat(newRoom));
-  //   // console.log(newRoom);
-  //   socket.emit("joinRoom", { username: user.username, roomId: newRoom._id });
-  //   socket.on("membersList", (membersList) => console.log(membersList.list));
-  //   socket.on("message", (msg) =>
-  //     dispatch(setMessagesList((messagesList) => messagesList.concat(msg)))
-  //   );
-  //   console.log("joined", membersList);
-  // };
   useEffect(() => {
     (async () => {
       let rooms = await getRooms(userId);
-      setChatList(rooms);
+      // console.log(rooms);
+      let reversed = rooms.reverse();
+      setChatList(reversed);
       // dispatch(setChatList(rooms));
     })();
-    setCounter(counter + 1);
-  }, []);
-  console.log("joined");
+  }, [state]);
+
   return (
     <div id="sidebar">
       <div className="header">
-        <img src={userState.user.picture} alt=""/>
+        <img src={userState.user.picture} alt="" />
         <div className="header-controllers">
           <i className="fas fa-sync"></i>
           <i
@@ -89,7 +73,14 @@ export default function SideBar({ socket, functions }) {
           chatList.map((chat) => {
             return (
               <div className="chat" key={chat._id} onClick={() => socket(chat)}>
-                <img src="" alt="" />
+                <img
+                  src={
+                    chat.roomPicture
+                      ? chat.roomPicture
+                      : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+                  }
+                  alt=""
+                />
                 <div className="chat-details">
                   <p>{chat.roomName}</p>
                   <p>Last Msg</p>

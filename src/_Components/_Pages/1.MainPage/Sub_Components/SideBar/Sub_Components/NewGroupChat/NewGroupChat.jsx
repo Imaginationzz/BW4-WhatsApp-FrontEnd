@@ -21,7 +21,7 @@ export default function NewGroupChat({ state, functions }) {
 
   useEffect(() => {
     setList(userList);
-  }, []);
+  }, [state]);
 
   //FILTER USERS
   const searchUser = (e) => {
