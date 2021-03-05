@@ -15,8 +15,12 @@ import {
   setChat,
   setChatList,
   setDeletedChat,
+  removeDeletedChat,
 } from "../../../../../Redux-Store/Chat/actions";
 import { setSide } from "../../../../../Redux-Store/SideBar/actions";
+
+//REACT BOOTSTRAP IMPORTS
+import { Badge } from "react-bootstrap";
 
 //STYLE IMPORTS
 import "./SideBar.scss";
@@ -29,6 +33,7 @@ export default function SideBar({ functions, messages }) {
   //STATE
   const [options, setOptions] = useState(false);
   const [chatOptions, setChatOptions] = useState(null);
+  const [not, setNot] = useState([]);
 
   const userState = useSelector((state) => state.userState);
   const chatList = useSelector((state) => state.chatState.chatList);
@@ -49,6 +54,17 @@ export default function SideBar({ functions, messages }) {
       let rooms = await getRooms(userId);
       let reversed = rooms.reverse();
       dispatch(setChatList(reversed));
+      let lastMsg = messages[messages.length - 1];
+      deletedChats.forEach((chat) => {
+        if (lastMsg && chat === lastMsg.receiver) {
+          dispatch(removeDeletedChat(chat));
+        }
+      });
+      chatList.forEach((chat) => {
+        if (lastMsg && chat._id === lastMsg.receiver) {
+          setNot(not.concat(chat._id));
+        }
+      });
     })();
   }, [messages]);
 
@@ -74,6 +90,11 @@ export default function SideBar({ functions, messages }) {
   const deleteChat = async (roomId) => {
     dispatch(setDeletedChat(roomId));
     // dispatch(setChat(null));
+  };
+
+  const onChatClick = (chat) => {
+    dispatch(setChat(chat));
+    setNot(not.filter((notification) => notification !== chat._id));
   };
 
   return (
@@ -108,11 +129,17 @@ export default function SideBar({ functions, messages }) {
               <div
                 className="chat"
                 key={chat._id}
-                onClick={() => dispatch(setChat(chat))}
+                onClick={() => onChatClick(chat)}
                 style={{
                   display: deletedChats.includes(chat._id) ? "none" : "",
                 }}
               >
+                <Badge
+                  variant="danger"
+                  style={{ display: not.includes(chat._id) ? "" : "none" }}
+                >
+                  !
+                </Badge>
                 <ChatOptions
                   functions={() => deleteChat(chat._id)}
                   show={{ i: i, state: chatOptions }}
@@ -143,7 +170,7 @@ export default function SideBar({ functions, messages }) {
                       : chat.roomName}
                   </p>
                   <p>
-                    {chat.messages.length > 0 || chat.messages !== undefined
+                    {chat.messages.length > 0 && chat.messages !== undefined
                       ? chat.messages[chat.messages.length - 1].text
                       : "No messages"}
                   </p>

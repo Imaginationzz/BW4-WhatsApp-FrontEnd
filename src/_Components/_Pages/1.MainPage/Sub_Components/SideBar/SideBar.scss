@@ -38,6 +38,11 @@
         width: 100%;
         overflow-y: auto;
         .chat{
+
+            .badge{
+                position: absolute;
+                right: 1rem;
+            }
             .chat-details{
                 position: relative;
                 &:hover{
