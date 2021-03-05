@@ -21,21 +21,12 @@ export default function Message({
       className="message"
       style={{
         justifyContent: sender === user ? "flex-end" : "flex-start",
-<<<<<<< HEAD
- /*        display:
+        /*        display:
           receiver[0] === currentChat._id ||
           sender === user ||
           receiver === currentChat._id
             ? ""
             : "none", */
-=======
-        // display:
-        // receiver[0] === currentChat._id ||
-        //    // sender === user
-        //   receiver === currentChat._id
-        //   ? ""
-        //   : "none",
->>>>>>> reniejr/chat-manager
       }}
     >
       <div
