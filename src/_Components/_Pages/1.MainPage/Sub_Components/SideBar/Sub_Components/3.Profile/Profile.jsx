@@ -1,11 +1,9 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef,useEffect } from 'react'
 import axios from "axios"
 import TextField from '@material-ui/core/TextField';
 import { Image } from "react-bootstrap"
 import { MdEdit, MdDone, MdCameraAlt } from "react-icons/md"
-import { IoArrowBack } from "react-icons/io5"
 import { useSelector } from "react-redux";
-import {Link} from "react-router-dom"
 import "./ProfileEdit.scss"
 import Headers from '../Headers/Headers';
 
@@ -18,7 +16,7 @@ function ProfileEdit({ state, functions }) {
     const [Name, setName] = useState(userState.user.username)
     const [Bio, setBio] = useState(userState.user.bio)
     const [Picture, setPicture] = useState(userState.user.picture)
-    const [File,setFile]= useState("")
+    const [showPicker,setShowPicker]=useState("none")
 
     const updateName = async () => {
         await fetch("http://localhost:5000/users/profile", { method: "PUT", 
@@ -68,6 +66,15 @@ function ProfileEdit({ state, functions }) {
        }
     }
 
+    const showP=()=>{
+        if(showPicker==="none"){
+            setShowPicker("flex")
+        }else{
+            setShowPicker("none")
+        }
+    }
+
+
     return (
         <div className="ProfileEdit" style={{ marginLeft: state === "profile" ? "" : "-100%" }}>
             <Headers title="Profile" functions={functions} />
@@ -89,7 +96,7 @@ function ProfileEdit({ state, functions }) {
                             {EditName ? <TextField id="standard-basic" defaultValue={Name} onChange={(event) => setName(event.target.value)} /> : <p>{Name}</p>}
                         </div>
                         <div className="EditIcon">
-                            {EditName ? <MdDone className="EditIcon" onClick={updateName} /> : <MdEdit className="EditIcon" onClick={() => setEditName(true)} />}
+                            {EditName ? <div style={{display:"block ruby"}}><MdDone className="EditIcon" onClick={updateName} /></div> : <MdEdit className="EditIcon" onClick={() => setEditName(true)} />}
                         </div>
                     </div>
                 </div>

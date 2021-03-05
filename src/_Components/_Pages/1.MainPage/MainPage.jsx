@@ -34,6 +34,7 @@ import { Row, Col, Alert } from "react-bootstrap";
 //STYLE IMPORTS
 import "./MainPage.scss";
 import ProfileEdit from "./Sub_Components/SideBar/Sub_Components/3.Profile/Profile";
+import EmojiPicker from "emoji-picker-react";
 
 // const urlParams = new URLSearchParams(window.location.search);
 // const userId = urlParams.get("userId");
@@ -116,7 +117,7 @@ export default function MainPage(props) {
       setMessage("");
       socket.emit("chat", { message, roomId: currentChat._id });
     } else {
-      setMessage(e.currentTarget.value);
+        setMessage(e.currentTarget.value);
     }
   };
 
@@ -153,6 +154,7 @@ export default function MainPage(props) {
             state={currentChat}
             messages={messages}
             inputMsg={message}
+            setMessage={setMessage}
           />
         </Col>
       </Row>

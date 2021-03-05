@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 
+import Picker from 'emoji-picker-react';
+
 //UTILITIES IMPORTS
 import { getProfile } from "./utilities";
 
@@ -12,10 +14,13 @@ import Message from "./Message/Message";
 
 //STYLE IMPORTS
 import "./ChatBox.scss";
+import { setMessagesList } from "../../../../../Redux-Store/Chat/actions";
 
-export default function ChatBox({ functions, state, messages, inputMsg }) {
+export default function ChatBox({ functions, state, messages, inputMsg,setMessage }) {
   const [showMedia, setShowMedia] = useState(false);
   const [chatName, setChatName] = useState("none");
+  const [chosenEmoji, setChosenEmoji] = useState("");
+  const [showPicker,setShowPicker]=useState("none")
   const userState = useSelector((state) => state.userState);
 
   useEffect(() => {
@@ -38,6 +43,18 @@ export default function ChatBox({ functions, state, messages, inputMsg }) {
       })();
     }
   }, [messages]);
+
+  const showP=()=>{
+    if(showPicker==="none"){
+        setShowPicker("flex")
+    }else{
+        setShowPicker("none")
+    }
+}
+
+const onEmojiClick = (event, emojiObject) => {
+  setMessage(inputMsg + emojiObject.emoji)
+};
 
   return (
     <div id="chatbox">
@@ -79,7 +96,8 @@ export default function ChatBox({ functions, state, messages, inputMsg }) {
             </div>
           </div>
           <div className="input-sender">
-            <i className="far fa-laugh"></i>
+            <i className="far fa-laugh" onClick={showP}></i>
+            <Picker onEmojiClick={onEmojiClick} pickerStyle={{display:showPicker,position:"absolute",bottom:"9vh",right:"44vw"}}/>
             <i
               className="fas fa-paperclip"
               onClick={() => setShowMedia(!showMedia)}
