@@ -3,7 +3,8 @@ import axios from "axios"
 import TextField from '@material-ui/core/TextField';
 import { Image } from "react-bootstrap"
 import { MdEdit, MdDone, MdCameraAlt } from "react-icons/md"
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { setSide } from "../../../../../../../Redux-Store/SideBar/actions";
 import "./ProfileEdit.scss"
 import Headers from '../Headers/Headers';
 
@@ -17,6 +18,8 @@ function ProfileEdit({ state, functions }) {
     const [Bio, setBio] = useState(userState.user.bio)
     const [Picture, setPicture] = useState(userState.user.picture)
     const [showPicker,setShowPicker]=useState("none")
+    const dispatch = useDispatch();
+    const sideState = useSelector((state) => state.sideBar);
 
     const updateName = async () => {
         await fetch("http://localhost:5000/users/profile", { method: "PUT", 
@@ -66,18 +69,12 @@ function ProfileEdit({ state, functions }) {
        }
     }
 
-    const showP=()=>{
-        if(showPicker==="none"){
-            setShowPicker("flex")
-        }else{
-            setShowPicker("none")
-        }
-    }
+
 
 
     return (
-        <div className="ProfileEdit" style={{ marginLeft: state === "profile" ? "" : "-100%" }}>
-            <Headers title="Profile" functions={functions} />
+        <div className="ProfileEdit" style={{ marginLeft: sideState === "profile" ? "" : "-100%" }}>
+            <Headers title="Profile" functions={() => dispatch(setSide("sidebar"))} />
             <div className="EditPage">
                 <div className="ProfilePicDiv">
                 <input type='file' id='file' ref={inputFile} style={{display: 'none'}} onChange={updatePicture}/>
