@@ -1,21 +1,3 @@
-//SOCKET CONNECTION OPTIONS
-export const socketConnection = (io) => {
-  const urlParams = new URLSearchParams(window.location.search);
-  const userId = urlParams.get("userId");
-  // console.log(userId);
-  let socket;
-  if (!userId) {
-    socket = null;
-  } else {
-    const connOpt = {
-      transports: ["websocket", "polling"],
-      query: { userId },
-    };
-    socket = io(process.env.REACT_APP_URL_DEV, connOpt);
-  }
-  return socket;
-};
-
 //GET ALL USERS WITH SOCKET
 export const getAllMembers = async (token) => {
   const response = await fetch(`${process.env.REACT_APP_URL_DEV}/users`, {
@@ -25,13 +7,31 @@ export const getAllMembers = async (token) => {
     },
   });
   const result = await response.json();
-  const onlyWithSocket = result.filter((user) => user.socketId);
-  return onlyWithSocket;
+  // const onlyWithSocket = result.filter((user) => user.socketId);
+  // return onlyWithSocket;
+  return result;
 };
 
 //SEND MESSAGE
 export const sendMessage = (socket, message, roomName) => {
   return socket.emit("chat", { roomName, message });
+};
+
+//CHECK ROOMS
+export const checkRooms = async (users) => {
+  let members = users.map((user) => {
+    return user.user._id;
+  });
+  // console.log(users);
+  let response = await fetch(`${process.env.REACT_APP_URL_DEV}/rooms/onlyId`);
+  let result = await response.json();
+  const check = await result.filter((room) => {
+    const isUsed = members.every((member) => room.membersList.includes(member));
+    if (isUsed) {
+      return isUsed;
+    }
+  });
+  return check;
 };
 
 //CREATE ROOM

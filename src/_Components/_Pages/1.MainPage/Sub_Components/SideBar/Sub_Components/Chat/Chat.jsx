@@ -3,9 +3,19 @@ import React from "react";
 //STYLE IMPORTS
 import "./Chat.scss";
 
-export default function Chat({ user, functions, lastMessage }) {
+export default function Chat({ user, functions, lastMessage, state }) {
+  let style = () => {
+    if (state) {
+      return {
+        display: state.includes(user) ? "none" : "",
+      };
+    } else {
+      return null;
+    }
+  };
+
   return (
-    <div className="chat" key={user._id} onClick={functions}>
+    <div className="chat" key={user._id} onClick={functions} style={style()}>
       <img src={user.picture ? user.picture : ""} alt="" />
       <div className="chat-details">
         <p>{user.username}</p>
