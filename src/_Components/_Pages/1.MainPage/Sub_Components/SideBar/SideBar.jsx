@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react";
 
 //UTILITIES IMPORTS
 import { getRooms } from "./utilities";
@@ -11,14 +11,18 @@ import { Link } from "react-router-dom";
 
 //REDUX IMPORTS
 import { useSelector, useDispatch } from "react-redux";
-import { setChat, setChatList } from "../../../../../Redux-Store/Chat/actions";
+import {
+  setChat,
+  setChatList,
+  setDeletedChat,
+} from "../../../../../Redux-Store/Chat/actions";
 import { setSide } from "../../../../../Redux-Store/SideBar/actions";
 
 //STYLE IMPORTS
 import "./SideBar.scss";
 import ChatOptions from "./Sub_Components/ChatOptions/ChatOptions";
 
-export default function SideBar({ functions }) {
+export default function SideBar({ functions, messages }) {
   const urlParams = new URLSearchParams(window.location.search);
   const userId = urlParams.get("userId");
 
@@ -29,6 +33,7 @@ export default function SideBar({ functions }) {
   const userState = useSelector((state) => state.userState);
   const chatList = useSelector((state) => state.chatState.chatList);
   const sideState = useSelector((state) => state.sideBar);
+  const deletedChats = useSelector((state) => state.chatState.deletedChat);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -37,7 +42,7 @@ export default function SideBar({ functions }) {
       let reversed = rooms.reverse();
       dispatch(setChatList(reversed));
     })();
-  }, []);
+  }, [sideState]);
 
   useEffect(() => {
     (async () => {
@@ -45,7 +50,7 @@ export default function SideBar({ functions }) {
       let reversed = rooms.reverse();
       dispatch(setChatList(reversed));
     })();
-  }, [sideState]);
+  }, [messages]);
 
   const searchChat = async (e) => {
     if (e.currentTarget.value !== "") {
@@ -66,10 +71,19 @@ export default function SideBar({ functions }) {
     dispatch(setChatList(reversed));
   };
 
+  const deleteChat = async (roomId) => {
+    dispatch(setDeletedChat(roomId));
+    // dispatch(setChat(null));
+  };
+
   return (
     <div id="sidebar">
       <div className="header">
-        <img src={userState.user.picture} alt="" onClick={()=>dispatch(setSide("profile"))} />
+        <img
+          src={userState.user.picture}
+          alt=""
+          onClick={() => dispatch(setSide("profile"))}
+        />
         <div className="header-controllers">
           <i className="fas fa-sync"></i>
           <i
@@ -95,9 +109,12 @@ export default function SideBar({ functions }) {
                 className="chat"
                 key={chat._id}
                 onClick={() => dispatch(setChat(chat))}
+                style={{
+                  display: deletedChats.includes(chat._id) ? "none" : "",
+                }}
               >
                 <ChatOptions
-                  functions={() => leaveRoom(chat._id)}
+                  functions={() => deleteChat(chat._id)}
                   show={{ i: i, state: chatOptions }}
                 />
                 <img
@@ -109,7 +126,6 @@ export default function SideBar({ functions }) {
                   alt=""
                 />
                 <div className="chat-details">
-
                   <i
                     className="fas fa-caret-down"
                     onClick={() => {
@@ -127,14 +143,13 @@ export default function SideBar({ functions }) {
                       : chat.roomName}
                   </p>
                   <p>
-                    {chat.messages.length > 0
+                    {chat.messages.length > 0 || chat.messages !== undefined
                       ? chat.messages[chat.messages.length - 1].text
-
                       : "No messages"}
                   </p>
                 </div>
               </div>
-            )
+            );
           })
         ) : (
           <NoResult
@@ -144,5 +159,5 @@ export default function SideBar({ functions }) {
         )}
       </div>
     </div>
-  )
+  );
 }
