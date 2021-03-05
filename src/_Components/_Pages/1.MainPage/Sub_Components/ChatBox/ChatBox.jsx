@@ -20,6 +20,8 @@ export default function ChatBox({ functions, inputMsg, messages }) {
   const userState = useSelector((state) => state.userState);
   const currentChat = useSelector((state) => state.chatState.current_chat);
 
+  // console.log(messages);
+
   useEffect(() => {
     (async () => {
       if (currentChat) {

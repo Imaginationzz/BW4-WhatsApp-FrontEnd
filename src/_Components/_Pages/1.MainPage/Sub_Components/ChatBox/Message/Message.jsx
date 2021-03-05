@@ -20,12 +20,12 @@ export default function Message({
       className="message"
       style={{
         justifyContent: sender === user ? "flex-end" : "flex-start",
-        display:
-          receiver[0] === currentChat._id ||
-          sender === user ||
-          receiver === currentChat._id
-            ? ""
-            : "none",
+        // display:
+        //   receiver[0] === currentChat._id ||
+        //   sender === user ||
+        //   receiver === currentChat._id
+        //     ? ""
+        //     : "none",
       }}
     >
       <div
