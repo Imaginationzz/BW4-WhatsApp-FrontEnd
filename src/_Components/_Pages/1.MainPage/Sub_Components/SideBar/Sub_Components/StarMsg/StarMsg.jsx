@@ -3,22 +3,27 @@ import Headers from "../Headers/Headers";
 import NoResult from "../NoResult/NoResult";
 
 //REDUX IMPORTS
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { setSide } from "../../../../../../../Redux-Store/SideBar/actions";
+
 //STYLE IMPORTS
 import "./StarMsg.scss";
 
-export default function StarMsg({ state, functions }) {
+export default function StarMsg() {
   //REDUX STATE
   const userState = useSelector((state) => state.userState);
+  const sideState = useSelector((state) => state.sideBar);
+  const dispatch = useDispatch();
+
   const starredMsg = userState.starred;
   return (
     <div
       className="star-msgList"
-      style={{ marginLeft: state === "star-msgList" ? "" : "-100%" }}
+      style={{ marginLeft: sideState === "star-msgList" ? "" : "-100%" }}
     >
       <Headers
         title="Starred Messages"
-        functions={() => functions("sidebar")}
+        functions={() => dispatch(setSide("sidebar"))}
       />
       <div className="starred-list">
         {starredMsg && starredMsg.length > 0 ? (

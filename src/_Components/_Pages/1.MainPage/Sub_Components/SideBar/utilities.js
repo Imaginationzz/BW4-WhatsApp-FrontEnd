@@ -1,8 +1,15 @@
 //GET ROOMSLIST
 export const getRooms = async (userId) => {
+  // console.log(userId);
   let response = await fetch(`${process.env.REACT_APP_URL_DEV}/rooms`);
   let result = await response.json();
-  return result;
+  let filtered = await result.filter((room) => {
+    // console.log(room.membersList);
+    return room.membersList.find((user) => user._id === userId);
+  });
+  // console.log(result);
+  // console.log(filtered);
+  return filtered;
 };
 
 //GET USER

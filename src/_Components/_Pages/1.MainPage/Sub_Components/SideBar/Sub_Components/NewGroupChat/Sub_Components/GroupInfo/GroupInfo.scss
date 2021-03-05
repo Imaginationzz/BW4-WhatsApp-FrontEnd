@@ -1,0 +1,49 @@
+@import '../../../../../../../../_General_Style/SASS/All';
+.group-info{
+    height:100%;
+    width:100%;
+    position: absolute;
+    top: 0;
+    background-color:#131c21;
+    z-index: 10;
+    @include transition(margin-left .3s ease-in-out);
+    .group-form{
+        width: 100%;
+        height: 80vh;
+        overflow-y: auto;
+        @include flexCentered(column, none, center);
+        .image-upload{
+            margin-top: 2rem;
+            label{
+                width: 30vh;
+                height: 30vh;
+                @include bordered(50%);
+                background-color: #3B4042;
+                @include flexCentered(row, center, center);
+                font-size: 7rem;
+                cursor: pointer;
+            }
+            input{
+                display: none;
+            }
+        }
+        input{
+            margin-top: 2rem;
+            width: 40vh;
+            padding: .5rem 1rem;
+            background-color: transparent;
+            border: none;
+            border-bottom: 1px solid rgba(255, 255, 255, .1);
+            color: #fff;
+            outline: none;
+        }
+        .fa-check-circle{
+            margin-top: 2rem;
+            font-size: 2.5rem;
+            @include transition(transform .2s ease-in-out);
+            color: #00BFA5;
+            cursor: pointer;
+
+        }
+    }
+}

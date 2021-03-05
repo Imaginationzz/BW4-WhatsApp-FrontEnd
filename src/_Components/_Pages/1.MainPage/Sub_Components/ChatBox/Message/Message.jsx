@@ -1,13 +1,34 @@
 import React from "react"
 
+//REDUX IMPORT
+import { useSelector } from "react-redux";
+
 //STYLE IMPORTS
 import "./Message.scss"
 
-export default function Message({ sender, user, message, media }) {
+
+export default function Message({
+  sender,
+  user,
+  message,
+  media,
+  receiver,
+  currentChat,
+}) {
+  // console.log(receiver);
+  // console.log(currentChat);
   return (
     <div
       className="message"
-      style={{ justifyContent: sender === user ? "flex-end" : "flex-start" }}
+      style={{
+        justifyContent: sender === user ? "flex-end" : "flex-start",
+        display:
+          receiver[0] === currentChat._id ||
+          sender === user ||
+          receiver === currentChat._id
+            ? ""
+            : "none",
+      }}
     >
       <div
         className="message-container"

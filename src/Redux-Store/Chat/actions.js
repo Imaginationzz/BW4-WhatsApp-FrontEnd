@@ -4,7 +4,7 @@ export const setChatList = (chatList) => ({
   type: SET_CHATLIST,
   payload: chatList,
 });
-export const setCurrentChat = (chat) => ({
+export const setChat = (chat) => ({
   type: SET_CURRENT_CHAT,
   payload: chat,
 });
