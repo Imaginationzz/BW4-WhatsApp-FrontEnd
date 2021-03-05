@@ -1,32 +1,36 @@
-@import '../../../../../_General_Style/SASS/All';
-.message{
-    width: 100%;
-    position: relative;
-    display: flex;
-    .message-container{
-        color: #fff;
-        display: inline-grid;
-        @include bordered(10px);
-        padding: .5rem 1rem;
-        margin: .5rem 0;
-        header{
-            position: absolute;
-            font-size: .9rem;
-            top: -.8rem;
-            font-weight: bold;
-        }
-        p{
-            margin: 0;
-            font-weight: 600;
-        }
-        @include animation(popup .2s ease);
+@import "../../../../../_General_Style/SASS/All";
+.message {
+  width: 100%;
+  position: relative;
+  display: flex;
+  .message-container {
+    color: #fff;
+    display: inline-grid;
+    @include bordered(10px);
+    padding: 0.5rem 1rem;
+    margin: 0.5rem 0;
+    header {
+      position: absolute;
+      font-size: 0.9rem;
+      top: -0.8rem;
+      font-weight: bold;
     }
+    p {
+      margin: 0;
+      font-weight: 600;
+    }
+    @include animation(popup 0.2s ease);
+    .photo {
+      height: 80px;
+      width: 80px;
+    }
+  }
 }
-@keyframes popup{
-    0%{
-        @include transform(scale(0))
-    }
-    100%{
-        @include transform(scale(1))
-    }
+@keyframes popup {
+  0% {
+    @include transform(scale(0));
+  }
+  100% {
+    @include transform(scale(1));
+  }
 }

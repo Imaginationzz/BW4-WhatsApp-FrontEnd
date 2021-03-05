@@ -1,22 +1,24 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react"
 
 //PERSONAL COMPONENTS IMPORTS
-import { ChatContainer } from "../Chat/Chat";
-import Chat from "../Chat/Chat";
-import Headers from "../Headers/Headers";
-import NoResult from "../NoResult/NoResult";
+import { ChatContainer } from "../Chat/Chat"
+import Chat from "../Chat/Chat"
+import Headers from "../Headers/Headers"
+import NoResult from "../NoResult/NoResult"
 
 //REDUX IMPORTS
+
 import { useSelector, useDispatch } from "react-redux";
 import { setSide } from "../../../../../../../Redux-Store/SideBar/actions";
 
 //STYLE IMPORTS
-import "./ContactList.scss";
+import "./ContactList.scss"
 
 export default function ContactList({ socket }) {
   //STATE
-  const [list, setList] = useState([]);
+  const [list, setList] = useState([])
   //REDUX STATE
+
   const userState = useSelector((state) => state.userState);
   const sideState = useSelector((state) => state.sideBar);
   const dispatch = useDispatch();
@@ -35,11 +37,12 @@ export default function ContactList({ socket }) {
     if (e.currentTarget.value !== "") {
       setList(
         list.filter((user) => user.username.includes(e.currentTarget.value))
-      );
+      )
     } else {
+
       setList(filtered);
     }
-  };
+  }
 
   return (
     <div
@@ -80,7 +83,7 @@ export default function ContactList({ socket }) {
                 key={user._id}
                 functions={() => socket(user, true)}
               />
-            );
+            )
           })
         ) : (
           <NoResult
@@ -90,5 +93,5 @@ export default function ContactList({ socket }) {
         )}
       </div>
     </div>
-  );
+  )
 }
