@@ -1,10 +1,16 @@
-import React, { useState } from "react"
+import React, { useState,useRef } from "react"
 
 //STYLE IMPORTS
 import "./Attachments.scss"
 
 export default function Attachments({ state, handleImage }) {
   // const [post, setPost] = useState(null)
+  const inputFile = useRef(null)
+
+  const onButtonClick = () => {
+    // `current` points to the mounted file input element
+   inputFile.current.click();
+  };
 
   const fileUploadHandler = (e) => {
     console.log(e)
@@ -32,8 +38,8 @@ export default function Attachments({ state, handleImage }) {
           //   console.log("send picture")
           //   fileUploadHandler(e)
           // }}
-        ></i>
-        <input id="file-input" type="file" onChange={fileUploadHandler} />
+        onClick={onButtonClick}></i>
+        <input type='file' id='file' ref={inputFile} style={{display: 'none'}} onChange={fileUploadHandler}/>
       </div>
       <div className="media-icons">
         <i className="fas fa-image"></i>
