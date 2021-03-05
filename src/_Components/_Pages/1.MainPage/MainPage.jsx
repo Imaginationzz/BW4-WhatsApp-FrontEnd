@@ -26,12 +26,16 @@ import Notifications from "./Sub_Components/SideBar/Sub_Components/Settings/Sub_
 import ProfileEdit from "./Sub_Components/SideBar/Sub_Components/3.Profile/Profile";
 import ThemeModal from "./Sub_Components/Modal/ThemeModal";
 import GroupInfo from "./Sub_Components/SideBar/Sub_Components/NewGroupChat/Sub_Components/GroupInfo/GroupInfo";
+import ProfileEdit from "./Sub_Components/SideBar/Sub_Components/3.Profile/Profile";
+import EmojiPicker from "emoji-picker-react";
 
 //BOOTSTRAP IMPORTS
 import { Row, Col, Alert } from "react-bootstrap";
 
 //STYLE IMPORTS
 import "./MainPage.scss";
+
+
 
 const connOpt = {
   transports: ["websocket", "polling"],
@@ -122,7 +126,7 @@ export default function MainPage(props) {
       setMessage("");
       socket.emit("chat", { message, roomId: chatState.current_chat._id });
     } else {
-      setMessage(e.currentTarget.value);
+        setMessage(e.currentTarget.value);
     }
   };
 
@@ -174,6 +178,7 @@ export default function MainPage(props) {
             functions={handleMessage}
             inputMsg={message}
             messages={messages}
+            setMessage={setMessage}
           />
         </Col>
       </Row>

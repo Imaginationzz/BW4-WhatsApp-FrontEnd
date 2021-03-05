@@ -69,7 +69,7 @@ export default function SideBar({ functions }) {
   return (
     <div id="sidebar">
       <div className="header">
-        <img src={userState.user.picture} alt="" />
+        <img src={userState.user.picture} alt="" onClick={()=>functions("profile")} />
         <div className="header-controllers">
           <i className="fas fa-sync"></i>
           <i
