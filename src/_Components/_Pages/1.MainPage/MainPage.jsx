@@ -26,8 +26,6 @@ import Notifications from "./Sub_Components/SideBar/Sub_Components/Settings/Sub_
 import ProfileEdit from "./Sub_Components/SideBar/Sub_Components/3.Profile/Profile";
 import ThemeModal from "./Sub_Components/Modal/ThemeModal";
 import GroupInfo from "./Sub_Components/SideBar/Sub_Components/NewGroupChat/Sub_Components/GroupInfo/GroupInfo";
-import ProfileEdit from "./Sub_Components/SideBar/Sub_Components/3.Profile/Profile";
-import EmojiPicker from "emoji-picker-react";
 
 //BOOTSTRAP IMPORTS
 import { Row, Col, Alert } from "react-bootstrap";
