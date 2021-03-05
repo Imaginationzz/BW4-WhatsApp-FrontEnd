@@ -3,6 +3,7 @@ import {
   SET_CURRENT_CHAT,
   SET_MESSAGES_LIST,
   SET_DELETED_CHAT,
+  REMOVE_DELETED_CHAT,
 } from "./constants";
 
 export const setChatList = (chatList) => ({
@@ -19,5 +20,9 @@ export const setMessagesList = (messagesList) => ({
 });
 export const setDeletedChat = (deletedChat) => ({
   type: SET_DELETED_CHAT,
+  payload: deletedChat,
+});
+export const removeDeletedChat = (deletedChat) => ({
+  type: REMOVE_DELETED_CHAT,
   payload: deletedChat,
 });

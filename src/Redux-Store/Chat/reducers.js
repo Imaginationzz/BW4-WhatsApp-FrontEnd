@@ -3,6 +3,7 @@ import {
   SET_CURRENT_CHAT,
   SET_MESSAGES_LIST,
   SET_DELETED_CHAT,
+  REMOVE_DELETED_CHAT,
 } from "./constants";
 
 const chatState = {
@@ -25,6 +26,11 @@ export const chatReducer = (state = chatState, action) => {
       return {
         ...state,
         deletedChat: state.deletedChat.concat(payload),
+      };
+    case REMOVE_DELETED_CHAT:
+      return {
+        ...state,
+        deletedChat: state.deletedChat.filter((chat) => chat !== payload),
       };
     default:
       return state;
