@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react"
 
 //REDUX IMPORTS
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux"
 
 //SOCKET IMPORTS
-import io from "socket.io-client";
+import io from "socket.io-client"
 
 //UTILITIES IMPORTS
+
 import { getAllMembers, createRoom, getRoom, checkRooms } from "./utilities";
 
 //REDUX ACTIONS
@@ -28,21 +29,24 @@ import ThemeModal from "./Sub_Components/Modal/ThemeModal";
 import GroupInfo from "./Sub_Components/SideBar/Sub_Components/NewGroupChat/Sub_Components/GroupInfo/GroupInfo";
 
 //BOOTSTRAP IMPORTS
-import { Row, Col, Alert } from "react-bootstrap";
+import { Row, Col, Alert } from "react-bootstrap"
 
 //STYLE IMPORTS
-import "./MainPage.scss";
+import "./MainPage.scss"
+import ProfileEdit from "./Sub_Components/SideBar/Sub_Components/3.Profile/Profile"
+
 
 
 
 const connOpt = {
   transports: ["websocket", "polling"],
-};
-let socket = io(process.env.REACT_APP_URL_DEV, connOpt);
+}
+let socket = io(process.env.REACT_APP_URL_DEV, connOpt)
 // }
 
 export default function MainPage(props) {
   //STATES
+
   const [allowed, setAllowed] = useState(false);
   const [sideBar, setSideBar] = useState("sidebar");
   const [messages, setMessages] = useState([]);
@@ -50,30 +54,33 @@ export default function MainPage(props) {
   const [modal, setModal] = useState(false);
   const [groupMembers, setGroupMembers] = useState([]);
   const [groupName, setGroupName] = useState("");
+  
   //REDUX STATES
-  const userState = useSelector((state) => state.userState);
-  const tokenState = useSelector((state) => state.tokenState);
-  const chatState = useSelector((state) => state.chatState);
+  const userState = useSelector((state) => state.userState)
+  const tokenState = useSelector((state) => state.tokenState)
+  const chatState = useSelector((state) => state.chatState)
+  
   //REDUX DISPATCH
   const dispatch = useDispatch();
 
   useEffect(() => {
-    (async () => {
+    ;(async () => {
       if (userState.user) {
-        setAllowed(true);
+        setAllowed(true)
         const allMembers = await getAllMembers(
           tokenState.access_token.access_token
         );
         dispatch(setUserList(allMembers));
       } else {
-        setAllowed(false);
+        setAllowed(false)
         setTimeout(() => {
-          props.history.push("/");
-        }, 3000);
+          props.history.push("/")
+        }, 3000)
       }
-    })();
+    })()
     socket.on("message", (msg) =>
       setMessages((messages) => messages.concat(msg))
+
     );
   }, []);
 
@@ -126,7 +133,22 @@ export default function MainPage(props) {
     } else {
         setMessage(e.currentTarget.value);
     }
-  };
+  }
+
+  const handleImage = async (data) => {
+    console.log("piped data", data)
+
+    const reader = new FileReader()
+    reader.addEventListener("load", function () {
+      // const b64 = reader.result.replace(/^data:.+;base64,/, "")
+      // const bytes = new Uint8Array(reader.result)
+
+      //b64.string will show the stringified
+
+      socket.emit("image", { roomId: currentChat._id, image: reader.result })
+    })
+    reader.readAsDataURL(data)
+  }
 
   const leaveRoom = async (roomId) => {
     socket.emit("leaveRoom", {
@@ -170,16 +192,19 @@ export default function MainPage(props) {
             groupName={groupName}
             setGroupName={setGroupName}
           />
+
         </Col>
         <Col xs={12} md={8}>
           <ChatBox
             functions={handleMessage}
             inputMsg={message}
+
+            handleImage={handleImage}
             messages={messages}
             setMessage={setMessage}
           />
         </Col>
       </Row>
     </div>
-  );
+  )
 }

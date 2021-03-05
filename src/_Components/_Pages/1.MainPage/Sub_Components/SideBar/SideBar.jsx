@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react"
 
 //UTILITIES IMPORTS
 import { getRooms } from "./utilities";
@@ -109,6 +109,7 @@ export default function SideBar({ functions }) {
                   alt=""
                 />
                 <div className="chat-details">
+
                   <i
                     className="fas fa-caret-down"
                     onClick={() => {
@@ -128,11 +129,12 @@ export default function SideBar({ functions }) {
                   <p>
                     {chat.messages.length > 0
                       ? chat.messages[chat.messages.length - 1].text
+
                       : "No messages"}
                   </p>
                 </div>
               </div>
-            );
+            )
           })
         ) : (
           <NoResult
@@ -142,5 +144,5 @@ export default function SideBar({ functions }) {
         )}
       </div>
     </div>
-  );
+  )
 }

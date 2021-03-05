@@ -1,24 +1,25 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react"
 
 import Picker from 'emoji-picker-react';
 
 //UTILITIES IMPORTS
-import { getProfile } from "./utilities";
+import { getProfile } from "./utilities"
 
 //REDUX IMPORTS
-import { useSelector } from "react-redux";
+import { useSelector } from "react-redux"
 
 //PERSONAL COMPONENTS IMPORTS
-import Attachments from "./Attachments/Attachments";
-import Message from "./Message/Message";
+import Attachments from "./Attachments/Attachments"
+import Message from "./Message/Message"
 
 //STYLE IMPORTS
+
 import "./ChatBox.scss";
 import { setMessagesList } from "../../../../../Redux-Store/Chat/actions";
 
 
 
-export default function ChatBox({ functions, state, messages, inputMsg,setMessage }) {
+export default function ChatBox({ functions, state, messages, inputMsg,setMessage, handleImage }) {
   const [showMedia, setShowMedia] = useState(false);
   const [chatName, setChatName] = useState("none");
   const [chosenEmoji, setChosenEmoji] = useState("");
@@ -40,13 +41,13 @@ export default function ChatBox({ functions, state, messages, inputMsg,setMessag
   }, [currentChat]);
 
   useEffect(() => {
-    let chatBox = document.querySelector(".message-list");
+    let chatBox = document.querySelector(".message-list")
     if (chatBox) {
       let scrollToBtm = (function () {
-        chatBox.scrollTop = chatBox.scrollHeight;
-      })();
+        chatBox.scrollTop = chatBox.scrollHeight
+      })()
     }
-  }, [messages]);
+  }, [messages])
 
   const showP=()=>{
     if(showPicker==="none"){
@@ -91,10 +92,12 @@ const onEmojiClick = (event, emojiObject) => {
                       sender={message.sender}
                       user={userState.user.username}
                       message={message.text}
+                      media={message.media}
+
                       receiver={message.receiver}
                       currentChat={currentChat}
                     />
-                  );
+                  )
                 })
               ) : (
                 <p className="no-messages">No messages here.</p>
@@ -116,7 +119,7 @@ const onEmojiClick = (event, emojiObject) => {
               value={inputMsg}
             />
             <i className="fas fa-microphone"></i>
-            <Attachments state={showMedia} />
+            <Attachments state={showMedia} handleImage={handleImage} />
           </div>
         </div>
       ) : (
@@ -130,5 +133,5 @@ const onEmojiClick = (event, emojiObject) => {
         </div>
       )}
     </div>
-  );
+  )
 }
