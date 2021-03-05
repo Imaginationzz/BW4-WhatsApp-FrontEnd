@@ -76,6 +76,7 @@ export default function ChatBox({
                       sender={message.sender}
                       user={userState.user.username}
                       message={message.text}
+                      media={message.media}
                     />
                   )
                 })

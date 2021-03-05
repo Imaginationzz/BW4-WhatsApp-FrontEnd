@@ -4,15 +4,14 @@ import React, { useState } from "react"
 import "./Attachments.scss"
 
 export default function Attachments({ state, handleImage }) {
-  const [post, setPost] = useState(null)
+  // const [post, setPost] = useState(null)
 
   const fileUploadHandler = (e) => {
     console.log(e)
-    const formData = new FormData()
-    formData.append("picture", e.target.files[0])
-    setPost(formData)
-    console.log("post", post)
-    handleImage(post)
+    // let formData = new FormData()
+    // formData = e.target.files[0]
+    const fileToRead = e.target.files[0]
+    handleImage(fileToRead)
   }
 
   return (

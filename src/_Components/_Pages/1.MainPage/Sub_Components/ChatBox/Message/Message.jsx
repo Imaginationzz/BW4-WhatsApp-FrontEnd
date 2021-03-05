@@ -1,9 +1,9 @@
-import React from "react";
+import React from "react"
 
 //STYLE IMPORTS
-import "./Message.scss";
+import "./Message.scss"
 
-export default function Message({ sender, user, message }) {
+export default function Message({ sender, user, message, media }) {
   return (
     <div
       className="message"
@@ -38,8 +38,8 @@ export default function Message({ sender, user, message }) {
         >
           {sender}
         </header>
-        <p>{message}</p>
+        {message ? <p>{message}</p> : <img className="photo" src={media} />}
       </div>
     </div>
-  );
+  )
 }

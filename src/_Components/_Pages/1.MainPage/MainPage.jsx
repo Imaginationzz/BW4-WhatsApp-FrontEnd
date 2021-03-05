@@ -121,8 +121,19 @@ export default function MainPage(props) {
     }
   }
 
-  const handleImage = (data) => {
+  const handleImage = async (data) => {
     console.log("piped data", data)
+
+    const reader = new FileReader()
+    reader.addEventListener("load", function () {
+      // const b64 = reader.result.replace(/^data:.+;base64,/, "")
+      // const bytes = new Uint8Array(reader.result)
+
+      //b64.string will show the stringified
+
+      socket.emit("image", { roomId: currentChat._id, image: reader.result })
+    })
+    reader.readAsDataURL(data)
   }
 
   return (
