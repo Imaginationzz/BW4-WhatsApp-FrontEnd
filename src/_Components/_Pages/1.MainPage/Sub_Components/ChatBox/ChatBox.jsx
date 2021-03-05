@@ -13,22 +13,25 @@ import Message from "./Message/Message";
 //STYLE IMPORTS
 import "./ChatBox.scss";
 
-export default function ChatBox({ functions, state, messages, inputMsg }) {
+export default function ChatBox({ functions, inputMsg, messages }) {
   const [showMedia, setShowMedia] = useState(false);
   const [chatName, setChatName] = useState("none");
+  //REDUX STATE
   const userState = useSelector((state) => state.userState);
+  const currentChat = useSelector((state) => state.chatState.current_chat);
 
   useEffect(() => {
     (async () => {
-      if (state) {
-        let otherUserId = state.membersList.find(
-          (user) => user !== userState.user._id
+      if (currentChat) {
+        // console.log(state);
+        let otherUserId = currentChat.membersList.find(
+          (user) => user._id !== userState.user._id
         );
-        let profile = await getProfile(otherUserId);
-        setChatName(profile.username);
+        // console.log(otherUserId);
+        setChatName(otherUserId.username);
       }
     })();
-  }, [state]);
+  }, [currentChat]);
 
   useEffect(() => {
     let chatBox = document.querySelector(".message-list");
@@ -41,15 +44,15 @@ export default function ChatBox({ functions, state, messages, inputMsg }) {
 
   return (
     <div id="chatbox">
-      {state ? (
+      {currentChat ? (
         <div className="chatbox-ui">
           <div className="chat-container">
             <div className="header">
               <div className="chat-info">
                 <img
                   src={
-                    state.roomPicture
-                      ? state.roomPicture
+                    currentChat.roomPicture
+                      ? currentChat.roomPicture
                       : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
                   }
                   alt=""
@@ -70,6 +73,8 @@ export default function ChatBox({ functions, state, messages, inputMsg }) {
                       sender={message.sender}
                       user={userState.user.username}
                       message={message.text}
+                      receiver={message.receiver}
+                      currentChat={currentChat}
                     />
                   );
                 })

@@ -1,0 +1,42 @@
+@import '../../../../_General_Style/SASS/All';
+.modal{
+    .modal-dialog{
+        width: 300px;
+        margin: 0;
+        @include absoluteCentered();
+        .modal-content{
+            background-color: #3B4042;
+            color: white;
+            padding: 1rem;
+            .modal-header{
+                border-bottom: none;
+            }
+            .modal-body{
+                display: flex;
+                flex-direction: column;
+                .option{
+                    input{
+                        margin-right: .5rem;
+                    }
+                }
+            }
+            .modal-footer{
+                border-top: none;
+                button{
+                    border: none;
+                }
+                .close-btn{
+                    background-color: transparent;
+                    color: #00BFA5;
+                    &:hover{
+                        background-color: rgba(0,0,0,0.2);
+                    }
+                }
+                .save-btn{
+                    color: black;
+                    background-color: #00BFA5;
+                }
+            }
+        }
+    }
+}
