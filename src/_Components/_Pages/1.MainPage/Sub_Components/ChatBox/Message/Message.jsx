@@ -1,15 +1,17 @@
-import React from "react";
+import React from "react"
 
 //REDUX IMPORT
 import { useSelector } from "react-redux";
 
 //STYLE IMPORTS
-import "./Message.scss";
+import "./Message.scss"
+
 
 export default function Message({
   sender,
   user,
   message,
+  media,
   receiver,
   currentChat,
 }) {
@@ -57,8 +59,8 @@ export default function Message({
         >
           {sender}
         </header>
-        <p>{message}</p>
+        {message ? <p>{message}</p> : <img className="photo" src={media} />}
       </div>
     </div>
-  );
+  )
 }
