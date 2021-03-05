@@ -1,9 +1,15 @@
-import { SET_CHATLIST, SET_CURRENT_CHAT, SET_MESSAGES_LIST } from "./constants";
+import {
+  SET_CHATLIST,
+  SET_CURRENT_CHAT,
+  SET_MESSAGES_LIST,
+  SET_DELETED_CHAT,
+} from "./constants";
 
 const chatState = {
   chatList: [],
   current_chat: null,
   messagesList: [],
+  deletedChat: [],
 };
 
 export const chatReducer = (state = chatState, action) => {
@@ -15,6 +21,11 @@ export const chatReducer = (state = chatState, action) => {
       return { ...state, current_chat: payload };
     case SET_MESSAGES_LIST:
       return { ...state, messagesList: payload };
+    case SET_DELETED_CHAT:
+      return {
+        ...state,
+        deletedChat: state.deletedChat.concat(payload),
+      };
     default:
       return state;
   }

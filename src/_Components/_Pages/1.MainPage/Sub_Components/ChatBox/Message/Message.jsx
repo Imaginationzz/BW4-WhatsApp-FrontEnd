@@ -1,11 +1,10 @@
-import React from "react"
+import React from "react";
 
 //REDUX IMPORT
 import { useSelector } from "react-redux";
 
 //STYLE IMPORTS
-import "./Message.scss"
-
+import "./Message.scss";
 
 export default function Message({
   sender,
@@ -23,11 +22,11 @@ export default function Message({
       style={{
         justifyContent: sender === user ? "flex-end" : "flex-start",
         // display:
-        //   receiver[0] === currentChat._id ||
-        //   sender === user ||
+        // receiver[0] === currentChat._id ||
+        //    // sender === user
         //   receiver === currentChat._id
-        //     ? ""
-        //     : "none",
+        //   ? ""
+        //   : "none",
       }}
     >
       <div
@@ -62,5 +61,5 @@ export default function Message({
         {message ? <p>{message}</p> : <img className="photo" src={media} />}
       </div>
     </div>
-  )
+  );
 }

@@ -72,3 +72,15 @@ export const getRoom = async (roomId) => {
   let result = await response.json();
   return result;
 };
+
+export const checkOneRoom = async (users, roomId) => {
+  let responseRoom = await fetch(
+    `${process.env.REACT_APP_URL_DEV}/rooms/onlyId/${roomId}`
+  );
+  let room = await responseRoom.json();
+  let members = users.map((user) => {
+    return user.user._id;
+  });
+  const check = members.every((member) => room.membersList.includes(member));
+  return check;
+};
