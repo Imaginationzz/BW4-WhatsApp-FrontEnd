@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useRef } from 'react'
+import axios from "axios"
 import TextField from '@material-ui/core/TextField';
 import { Image } from "react-bootstrap"
 import { MdEdit, MdDone, MdCameraAlt } from "react-icons/md"
@@ -9,6 +10,7 @@ import "./ProfileEdit.scss"
 import Headers from '../Headers/Headers';
 
 function ProfileEdit({ state, functions }) {
+    const inputFile = useRef(null)
     const userState = useSelector((state) => state.userState);
     const tokenState = useSelector((state) => state.tokenState);
     const [EditName, setEditName] = useState(false);
@@ -16,6 +18,7 @@ function ProfileEdit({ state, functions }) {
     const [Name, setName] = useState(userState.user.username)
     const [Bio, setBio] = useState(userState.user.bio)
     const [Picture, setPicture] = useState(userState.user.picture)
+    const [File,setFile]= useState("")
 
     const updateName = async () => {
         await fetch("http://localhost:5000/users/profile", { method: "PUT", 
@@ -44,13 +47,34 @@ function ProfileEdit({ state, functions }) {
             alert(`Successfully Changed Bio to ${Bio}`)
         setEditBio(false)
     }
+    const onButtonClick = () => {
+        // `current` points to the mounted file input element
+       inputFile.current.click();
+      };
+
+    const updatePicture = async (e)=>{
+        const formData = new FormData();
+        formData.append("image",e.target.files[0])
+       try {
+            const res = await axios.put("http://localhost:5000/users/profile/picture",formData,{
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    'Authorization': 'Bearer ' + tokenState.access_token.access_token
+                }
+            })
+            setPicture(res.data.picture)
+       } catch (error) {
+           console.log(error)
+       }
+    }
 
     return (
         <div className="ProfileEdit" style={{ marginLeft: state === "profile" ? "" : "-100%" }}>
             <Headers title="Profile" functions={functions} />
             <div className="EditPage">
                 <div className="ProfilePicDiv">
-                    <Image className="ProfilePic" src={Picture} roundedCircle />
+                <input type='file' id='file' ref={inputFile} style={{display: 'none'}} onChange={updatePicture}/>
+                    <Image className="ProfilePic" src={Picture} roundedCircle onClick={onButtonClick}  />
                     <div className="ImageOverlay">
                         <MdCameraAlt className="CameraIcon" />
                         <span> Change Profile Picture</span>
